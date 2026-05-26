@@ -609,13 +609,32 @@ function renderAvailability() {
     const d = new Date(today); d.setDate(today.getDate() + i);
     return d.toISOString().split('T')[0];
   });
-
   const todayStr = today.toISOString().split('T')[0];
 
-  const fmt = d => {
-    const [,m,day] = d.split('-');
-    return day + '/' + m;
-  };
+  // Pre-compute booked/blocked sets so cell rendering is O(1) per cell
+  // bookedMap: "group|date" -> booking name+id for tooltip
+  const bookedMap = new Map();
+  bookings.forEach(b => {
+    if (!b.car_group || !b.pickup_date || !b.return_date) return;
+    dates.forEach(d => {
+      if (isDateInRange(d, b.pickup_date, b.return_date)) {
+        if (!bookedMap.has(b.car_group + '|' + d))
+          bookedMap.set(b.car_group + '|' + d, b.name + ' · ' + b.id);
+      }
+    });
+  });
+  // blockedSet: "group|date"
+  const blockedSet = new Set();
+  blocked.forEach(bl => {
+    dates.forEach(d => {
+      if (isDateInRange(d, bl.from, bl.to)) {
+        if (bl.car_group === 'ALL') CAR_GROUPS.forEach(g => blockedSet.add(g + '|' + d));
+        else blockedSet.add(bl.car_group + '|' + d);
+      }
+    });
+  });
+
+  const fmt = d => { const [,m,day] = d.split('-'); return day + '/' + m; };
   const dow = d => ['Κυρ','Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ'][new Date(d).getDay()];
 
   let html = '<thead><tr><th class="car-col">Αυτοκίνητο</th>';
@@ -625,11 +644,12 @@ function renderAvailability() {
   CAR_GROUPS.forEach(group => {
     html += `<tr><td class="car-name-cell">${group}<br/><span style="font-weight:400;font-size:.7rem;color:var(--g400)">${CAR_NAMES[group]||''}</span></td>`;
     dates.forEach(d => {
-      const isBooked  = bookings.some(b => b.car_group === group && b.pickup_date && b.return_date && isDateInRange(d, b.pickup_date, b.return_date));
-      const isBlocked = blocked.some(bl => (bl.car_group === group || bl.car_group === 'ALL') && isDateInRange(d, bl.from, bl.to));
+      const key = group + '|' + d;
+      const isBlocked = blockedSet.has(key);
+      const bookedBy  = bookedMap.get(key);
       const isToday   = d === todayStr;
-      const cls = isBlocked ? 'blocked' : isBooked ? 'booked' : isToday ? 'today' : 'free';
-      const title = isBlocked ? 'Αποκλεισμένο' : isBooked ? (() => { const bk = bookings.find(b => b.car_group === group && isDateInRange(d, b.pickup_date, b.return_date)); return bk ? bk.name + ' · ' + bk.id : 'Κρατημένο'; })() : 'Διαθέσιμο';
+      const cls   = isBlocked ? 'blocked' : bookedBy ? 'booked' : isToday ? 'today' : 'free';
+      const title = isBlocked ? 'Αποκλεισμένο' : bookedBy ? bookedBy : 'Διαθέσιμο';
       html += `<td><span class="avail-cell ${cls}" title="${title}"></span></td>`;
     });
     html += '</tr>';

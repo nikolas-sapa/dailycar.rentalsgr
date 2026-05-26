@@ -70,11 +70,12 @@
     @media (max-width: 480px) { .bk-step-label { display: none; } }
 
     /* ---- FORM SECTION DIVIDER ---- */
-    .fsec { margin-bottom: 32px; }
-    .fsec-head { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-    .fsec-num { width: 26px; height: 26px; border-radius: 50%; background: var(--black); color: #fff; font-family: var(--font-display); font-size: .68rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .fsec-title { font-family: var(--font-display); font-size: .82rem; font-weight: 700; color: var(--black); letter-spacing: .3px; }
-    .fsec-line { flex: 1; height: 1px; background: var(--gray-200); }
+    .fsec { margin-bottom: 8px; }
+    .fsec + .fsec { margin-top: 32px; }
+    .fsec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; background: var(--gray-100); border-radius: 12px; padding: 12px 16px; }
+    .fsec-num { width: 28px; height: 28px; border-radius: 50%; background: var(--red); color: #fff; font-family: var(--font-display); font-size: .7rem; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(232,28,46,.28); }
+    .fsec-title { font-family: var(--font-display); font-size: .9rem; font-weight: 700; color: var(--black); letter-spacing: .1px; }
+    .fsec-line { flex: 1; height: 1px; background: var(--gray-300); }
 
     /* ---- INSURANCE CARDS (stacked rows) ---- */
     .ins-list { display: flex; flex-direction: column; gap: 8px; }
