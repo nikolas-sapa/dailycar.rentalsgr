@@ -787,6 +787,8 @@ function translateDynamicContent(lang) {
     'Κέντρο Αθήνας': 'Athens City Centre',
     'Αεροδρόμιο Αθηνών — «Ελ. Βενιζέλος»': 'Athens Airport — "El. Venizelos"',
     'Πειραιάς': 'Piraeus',
+    'Ραφήνα': 'Rafina',
+    'Λαύριο': 'Lavrio',
     'Άλλη τοποθεσία (αναφέρετε στα σχόλια)': 'Other location (specify in notes)'
   };
   document.querySelectorAll('select[name="pickup_location"] option').forEach(function(opt) {
@@ -855,7 +857,8 @@ function translateDynamicContent(lang) {
     '08:00–22:00 — 7 ημέρες την εβδομάδα':'08:00–22:00 — 7 days a week',
     'Ακολουθήστε μας για προσφορές':'Follow us for offers'
   };
-  document.querySelectorAll('.c-info-lbl, .c-info-sub, .c-info-val:not(:has(a))').forEach(function(el) {
+  document.querySelectorAll('.c-info-lbl, .c-info-sub, .c-info-val').forEach(function(el) {
+    if (el.querySelector('a')) return;
     var orig = el.dataset.origText || el.textContent.trim();
     if (!el.dataset.origText) el.dataset.origText = orig;
     if (infoMap[orig]) el.textContent = en ? infoMap[orig] : orig;
@@ -890,7 +893,9 @@ function translateDynamicContent(lang) {
     'Ξεκινήστε σήμερα':'Start today',
     'Κλείστε τώρα →':'Book now →',
     'Καλέστε τώρα':'Call now',
-    'Φόρμα κράτησης →':'Booking form →'
+    'Φόρμα κράτησης →':'Booking form →',
+    'Φόρμα Κράτησης →':'Booking Form →',
+    'Καλέστε μας — θα βρούμε μαζί το κατάλληλο αυτοκίνητο για εσάς.':"Call us — we'll find the right car for you together."
   };
   document.querySelectorAll('.a-stat-lbl, .val-c h3, .s-title, .s-sub, .cta-title, .cta-sub, .btn-wt, .btn-wt-out, .a-stat-num + .a-stat-lbl').forEach(function(el) {
     var orig = el.dataset.origText || el.textContent.trim();
@@ -914,6 +919,61 @@ function translateDynamicContent(lang) {
     var orig = el.dataset.origText || el.textContent.trim();
     if (!el.dataset.origText) el.dataset.origText = orig;
     if (aboutMap[orig]) el.textContent = en ? aboutMap[orig] : orig;
+  });
+
+  // ── Fleet page: insurance & extras section ───────────────────────────────
+  var fleetTxtMap = {
+    'Πακέτα Ασφάλισης':'Insurance Packages',
+    'Επιλέξτε την κάλυψή σας':'Choose Your Coverage',
+    'Όλες οι τιμές ανά ημέρα ενοικίασης. Η βασική CDW/TP περιλαμβάνεται σε κάθε ενοικίαση.':'All prices per rental day. Basic CDW/TP is included with every rental.',
+    'Πακέτο':'Package',
+    'Τι καλύπτει':"What's Covered",
+    '(Εγγύηση €500)':'(Deposit €500)',
+    '(Εγγύηση €700)':'(Deposit €700)',
+    '(Εγγύηση €900)':'(Deposit €900)',
+    '(Εγγύηση €1200)':'(Deposit €1,200)',
+    'Συμπεριλαμβάνεται':'Included',
+    'CDW + Κλοπή. Ευθύνη μέχρι το ποσό εγγύησης.':'CDW + Theft. Liability up to deposit amount.',
+    'Δωρεάν':'Free',
+    'Μειωμένη Ευθύνη':'Reduced Liability',
+    'Μειώνει σημαντικά το ποσό ευθύνης σε ζημιές.':'Significantly reduces liability for damages.',
+    'Πλήρης Κάλυψη':'Full Coverage',
+    'Ευρεία κάλυψη. Εξαιρούνται: αμέλεια, λάθος καύσιμο, κλειδιά, πρόστιμα.':'Broad coverage. Excludes: negligence, wrong fuel, keys, fines.',
+    'Πλήρης + Τζάμια & Ελαστικά':'Full + Glass & Tyres',
+    'Μέγιστη Κάλυψη':'Maximum Coverage',
+    'Ό,τι η Πλήρης + τζάμια, ελαστικά και ζάντες.':'Everything in Full + glass, tyres and wheels.',
+    'Πρόσθετες Υπηρεσίες':'Additional Services',
+    'Extras & Προαιρετικές Χρεώσεις':'Extras & Optional Charges',
+    'Ο 2ος οδηγός παρέχεται δωρεάν. Οι παρακάτω υπηρεσίες χρεώνονται ανά ενοικίαση.':'The 2nd driver is free. The following services are charged per rental.',
+    'Παιδικό κάθισμα (Booster)':'Child Booster Seat',
+    '€25 / ενοικίαση':'€25 / rental',
+    'Βρεφικό κάθισμα':'Baby Seat',
+    'Εξουσιοδότηση Φέρι':'Ferry Boarding Authorization',
+    '€60 / ενοικίαση':'€60 / rental',
+    'Νέος οδηγός (<21 ετών)':'Young Driver (<21 years)',
+    'Ηλικιωμένος οδηγός (>75 ετών)':'Senior Driver (>75 years)',
+    'Πρόσθετος οδηγός (3ος+)':'Additional Driver (3rd+)',
+    '€30 / ενοικίαση':'€30 / rental',
+    '2ος δωρεάν':'2nd free',
+    'Εκτός ωραρίου γραφείου':'Out of Office Hours',
+    '€30 / υπηρεσία':'€30 / service',
+    'Εκτός 08:00–22:00':'Outside 08:00–22:00',
+    'Σημείωση:':'Note:'
+  };
+  var fleetSec = document.getElementById('fleet-ins-section');
+  if (fleetSec) {
+    fleetSec.querySelectorAll('div,p,td,th,span,strong,h2').forEach(function(el) {
+      if (el.children.length > 0) return;
+      var txt = el.dataset.origFleet || el.textContent.trim();
+      if (!el.dataset.origFleet && txt) el.dataset.origFleet = txt;
+      if (fleetTxtMap[txt] !== undefined) el.textContent = en ? fleetTxtMap[txt] : (el.dataset.origFleet || txt);
+    });
+  }
+  // cta-title uses innerHTML due to embedded <br>
+  document.querySelectorAll('.cta-band .cta-title').forEach(function(el) {
+    var orig = el.dataset.origHTML || el.innerHTML;
+    if (!el.dataset.origHTML) el.dataset.origHTML = orig;
+    el.innerHTML = en ? "Can't find what<br/>you're looking for?" : orig;
   });
 }
 
