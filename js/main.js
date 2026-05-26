@@ -611,7 +611,7 @@ var TRANSLATIONS = {
   }
 };
 
-function setLang(lang) {
+window.setLang = function setLang(lang) {
   localStorage.setItem('dcr_lang', lang);
   document.documentElement.lang = lang === 'en' ? 'en' : 'el';
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.lang === lang); });
