@@ -4,25 +4,59 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Στόλος Αυτοκινήτων — Daily Car Rentals GR</title>
-  <meta name="description" content="Δείτε τον πλήρη στόλο αυτοκινήτων μας. Οικονομικά, sedan, SUV και minivan από 10€/ημέρα. Χωρίς πιστωτική κάρτα."/>
+  <meta name="description" content="22 κατηγορίες αυτοκινήτων από 28€/ημέρα. Οικονομικά, Sedan, SUV και Van. Χωρίς πιστωτική κάρτα. Κορωπί, Αθήνα."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="Στόλος — Daily Car Rentals GR"/>
+  <meta property="og:description" content="22 κατηγορίες αυτοκινήτων από 28€/ημέρα."/>
+  <meta property="og:url" content="https://dailycargreece.com/fleet.html"/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23e81c2e'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='Arial Black' fill='white'>D</text></svg>"/>
   <style>
-    .filter-wrap { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 36px; margin-bottom: 0; }
+    .filter-wrap { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 36px; }
     .filter-btn { font-family: var(--font-display); font-size: .8rem; font-weight: 600; padding: 9px 20px; border-radius: 100px; border: 1.5px solid var(--gray-200); color: var(--gray-600); transition: all .25s; cursor: pointer; background: #fff; }
     .filter-btn:hover { border-color: var(--red); color: var(--red); }
     .filter-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
-    .car-c { transition: transform .4s var(--ease-out), box-shadow .4s, border-color .4s, opacity .3s; }
-    .pricing-note { background: rgba(232,28,46,.06); border: 1px solid rgba(232,28,46,.15); border-radius: 14px; padding: 20px 24px; margin-top: 60px; display: flex; align-items: center; gap: 16px; }
-    .pricing-note-ico { font-size: 1.6rem; flex-shrink: 0; }
-    .pricing-note-txt { font-size: .9rem; color: var(--gray-600); line-height: 1.6; }
+    .car-c { transition: transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s, border-color .4s, opacity .3s; }
+
+    /* Fleet card header */
+    .car-c-img { height: 160px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .car-c-img.bg-economy  { background: linear-gradient(145deg, #f0f4f8, #e2ecf4); }
+    .car-c-img.bg-sedan    { background: linear-gradient(145deg, #f5f0ec, #ede4da); }
+    .car-c-img.bg-suv      { background: linear-gradient(145deg, #eff4f0, #e2eee5); }
+    .car-c-img.bg-van      { background: linear-gradient(145deg, #eff2f8, #e4eaf6); }
+
+    .group-code-bg {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(0,0,0,.05);
+      letter-spacing: -2px;
+      line-height: 1;
+      user-select: none;
+    }
+    .car-shape { position: relative; z-index: 1; }
+
+    /* Pricing tier table */
+    .tier-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    .tier-table th { font-family: var(--font-display); font-size: .58rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-400); text-align: center; padding: 6px 2px 4px; }
+    .tier-table td { text-align: center; padding: 4px 2px 8px; }
+    .tier-table td .rate { font-family: var(--font-display); font-size: .85rem; font-weight: 700; color: var(--black); }
+    .tier-table td:first-child .rate { color: var(--red); }
+    .tier-bg { background: var(--gray-100); border-radius: 8px; padding: 2px 6px; }
+
+    .spec-icon { width: 15px; height: 15px; vertical-align: middle; margin-right: 3px; opacity: .5; }
+    .deposit-row { display: flex; align-items: center; gap: 6px; font-size: .7rem; color: var(--gray-400); margin-bottom: 14px; }
+
+    .pricing-note { background: rgba(232,28,46,.05); border: 1px solid rgba(232,28,46,.14); border-radius: 12px; padding: 18px 22px; margin-top: 52px; display: flex; align-items: flex-start; gap: 14px; }
+    .pricing-note-ico { flex-shrink: 0; margin-top: 1px; color: var(--red); }
+    .pricing-note-txt { font-size: .88rem; color: var(--gray-600); line-height: 1.65; }
     .pricing-note-txt strong { color: var(--black); font-family: var(--font-display); }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav id="nav">
   <div class="nav-in">
     <a href="index.html" class="nav-logo">Daily<span>Car</span><small>Rentals GR</small></a>
@@ -42,23 +76,17 @@
   <a href="contact.html" class="mob-cta">Κάντε Κράτηση →</a>
 </div>
 
-<!-- PAGE HEADER -->
 <div class="pg-header">
   <div class="pg-header-bg"></div>
   <div class="pg-grid-bg"></div>
   <div class="wrap pg-header-in">
-    <div class="breadcrumb">
-      <a href="index.html">Αρχική</a>
-      <span class="breadcrumb-sep">›</span>
-      <span>Στόλος</span>
-    </div>
-    <div class="pg-header-tag">Επιλέξτε το αυτοκίνητό σας</div>
+    <div class="breadcrumb"><a href="index.html">Αρχική</a><span class="breadcrumb-sep">›</span><span>Στόλος</span></div>
+    <div class="s-tag" style="margin-bottom:14px">22 Κατηγορίες Αυτοκινήτων</div>
     <h1>Ο <span>Στόλος</span> μας</h1>
-    <p>Από οικονομικά hatchback έως ευρύχωρα SUV — βρείτε το ιδανικό αυτοκίνητο για κάθε ανάγκη σας.</p>
+    <p>Από Mini hatchback έως 9θέσια Van — βρείτε το ιδανικό αυτοκίνητο. Τιμές ανά διάρκεια ενοικίασης, χωρίς κρυφές χρεώσεις.</p>
   </div>
 </div>
 
-<!-- FLEET SECTION -->
 <section class="section">
   <div class="wrap">
     <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:20px;">
@@ -66,270 +94,733 @@
         <div class="rv"><div class="s-tag">Διαθέσιμα Αυτοκίνητα</div></div>
         <div class="rv d1"><h2 class="s-title">Επιλέξτε <span>κατηγορία</span></h2></div>
       </div>
-      <div class="rv d2">
-        <a href="contact.html" class="btn-r">Ρωτήστε για διαθεσιμότητα →</a>
-      </div>
+      <div class="rv d2"><a href="contact.html" class="btn-r">Ρωτήστε για διαθεσιμότητα →</a></div>
     </div>
 
-    <!-- Filters -->
     <div class="filter-wrap rv d2">
       <button class="filter-btn active" data-cat="all">Όλα</button>
       <button class="filter-btn" data-cat="economy">Οικονομικό</button>
-      <button class="filter-btn" data-cat="sedan">Sedan</button>
+      <button class="filter-btn" data-cat="sedan">Compact / Sedan</button>
       <button class="filter-btn" data-cat="suv">SUV</button>
       <button class="filter-btn" data-cat="van">Van / Minivan</button>
     </div>
 
-    <div class="fleet-grid" style="margin-top:36px">
+    <div class="fleet-grid" style="margin-top:32px">
 
-      <!-- Economy 1 -->
+      <!-- GROUP A -->
       <div class="car-c rv d1" data-cat="economy">
-        <div class="car-c-img">
-          <svg viewBox="0 0 300 160" style="width:85%">
-            <ellipse cx="150" cy="140" rx="130" ry="11" fill="rgba(0,0,0,.07)"/>
-            <path d="M25 115 Q25 95 42 90 L80 82 L110 48 Q122 36 145 34 L180 33 Q205 33 218 48 L242 82 L268 87 Q280 90 280 108 L280 115 Z" fill="#e8e8e8"/>
-            <path d="M110 48 Q122 36 145 34 L180 33 Q205 33 218 48 L242 82 L80 82 Z" fill="#d8d8d8"/>
-            <path d="M118 80 L122 52 Q128 40 145 37 L180 36 Q200 36 210 50 L228 80 Z" fill="rgba(120,180,220,.2)" stroke="rgba(100,160,200,.25)" stroke-width="1"/>
-            <line x1="175" y1="37" x2="172" y2="80" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-            <rect x="25" y="104" width="255" height="4" rx="2" fill="rgba(232,28,46,.65)"/>
-            <circle cx="82" cy="119" r="21" fill="#999"/><circle cx="82" cy="119" r="12" fill="#bbb"/><circle cx="82" cy="119" r="5" fill="#888"/>
-            <circle cx="225" cy="119" r="21" fill="#999"/><circle cx="225" cy="119" r="12" fill="#bbb"/><circle cx="225" cy="119" r="5" fill="#888"/>
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">A</div>
+          <div class="car-cat">Mini</div>
+          <div class="car-group-code">A</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d8e4f0" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(180,210,240,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#b8cce0"/><circle cx="53" cy="68" r="9" fill="#ccdaeb"/><circle cx="53" cy="68" r="3.5" fill="#9ab4cc"/>
+            <circle cx="152" cy="68" r="15" fill="#b8cce0"/><circle cx="152" cy="68" r="9" fill="#ccdaeb"/><circle cx="152" cy="68" r="3.5" fill="#9ab4cc"/>
           </svg>
-          <div class="car-cat">Οικονομικό</div>
         </div>
         <div class="car-c-body">
-          <div class="car-name">Compact Hatchback</div>
-          <div class="car-type-lbl">Ιδανικό για κίνηση στην πόλη</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Βενζίνη</span>
-            <span class="spec-i">⚙️ Χειροκίνητο</span>
-            <span class="spec-i">👤 5 θέσεις</span>
-            <span class="spec-i">🧳 Μικρή αποσκευή</span>
+          <div class="car-name">Toyota Aygo <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Mini — 3 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">20€</span></td><td><span class="rate">17€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις
           </div>
           <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">10€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
+            <div><div class="price-fr">από</div><div class="price-big">17€ <span>/ ημέρα</span></div></div>
+            <a href="contact.html?group=A" class="btn-dark">Κράτηση</a>
           </div>
         </div>
       </div>
 
-      <!-- Economy 2 -->
+      <!-- GROUP B -->
       <div class="car-c rv d2" data-cat="economy">
-        <div class="car-c-img" style="background:linear-gradient(135deg,#f8f0e0,#f0e8d8)">
-          <svg viewBox="0 0 300 160" style="width:85%">
-            <ellipse cx="150" cy="140" rx="128" ry="11" fill="rgba(0,0,0,.06)"/>
-            <path d="M28 114 Q28 94 44 89 L82 81 L112 49 Q124 37 146 35 L178 34 Q203 34 215 49 L238 81 L262 86 Q273 89 273 107 L273 114 Z" fill="#f5e8c0"/>
-            <path d="M112 49 Q124 37 146 35 L178 34 Q203 34 215 49 L238 81 L82 81 Z" fill="#ead8a8"/>
-            <path d="M119 79 L123 53 Q129 41 146 38 L178 37 Q198 37 208 51 L224 79 Z" fill="rgba(120,180,100,.18)" stroke="rgba(100,160,80,.2)" stroke-width="1"/>
-            <line x1="173" y1="38" x2="170" y2="79" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-            <rect x="28" y="103" width="245" height="4" rx="2" fill="rgba(232,28,46,.7)"/>
-            <circle cx="84" cy="118" r="21" fill="#c8a860"/><circle cx="84" cy="118" r="12" fill="#d8b870"/><circle cx="84" cy="118" r="5" fill="#b89850"/>
-            <circle cx="222" cy="118" r="21" fill="#c8a860"/><circle cx="222" cy="118" r="12" fill="#d8b870"/><circle cx="222" cy="118" r="5" fill="#b89850"/>
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">B</div>
+          <div class="car-cat">Economy</div>
+          <div class="car-group-code">B</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d8e4f0" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(180,210,240,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#b8cce0"/><circle cx="53" cy="68" r="9" fill="#ccdaeb"/><circle cx="53" cy="68" r="3.5" fill="#9ab4cc"/>
+            <circle cx="152" cy="68" r="15" fill="#b8cce0"/><circle cx="152" cy="68" r="9" fill="#ccdaeb"/><circle cx="152" cy="68" r="3.5" fill="#9ab4cc"/>
           </svg>
-          <div class="car-cat">Οικονομικό</div>
         </div>
         <div class="car-c-body">
-          <div class="car-name">City Mini</div>
-          <div class="car-type-lbl">Εύκολο στάθμευση, χαμηλή κατανάλωση</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Βενζίνη</span>
-            <span class="spec-i">⚙️ Αυτόματο</span>
-            <span class="spec-i">👤 4 θέσεις</span>
+          <div class="car-name">Fiat Panda <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Economy — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">20€</span></td><td><span class="rate">17€</span></td></tr>
+            </table>
           </div>
-          <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">12€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
-          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">17€ <span>/ ημέρα</span></div></div><a href="contact.html?group=B" class="btn-dark">Κράτηση</a></div>
         </div>
       </div>
 
-      <!-- Sedan 1 -->
-      <div class="car-c rv d3" data-cat="sedan">
-        <div class="car-c-img" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
-          <svg viewBox="0 0 300 160" style="width:85%">
-            <ellipse cx="150" cy="142" rx="132" ry="12" fill="rgba(232,28,46,.12)"/>
-            <path d="M20 118 Q20 96 40 91 L85 82 L118 46 Q130 32 155 30 L185 29 Q210 29 224 46 L252 82 L272 88 Q283 92 283 110 L283 118 Z" fill="#1e1e3a"/>
-            <path d="M118 46 Q130 32 155 30 L185 29 Q210 29 224 46 L252 82 L85 82 Z" fill="#252545"/>
-            <path d="M126 80 L130 50 Q136 37 155 33 L185 32 Q207 32 218 48 L238 80 Z" fill="rgba(80,120,200,.2)" stroke="rgba(100,150,220,.25)" stroke-width="1"/>
-            <line x1="172" y1="33" x2="169" y2="80" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
-            <rect x="20" y="107" width="263" height="5" rx="2.5" fill="rgba(232,28,46,.9)"/>
-            <circle cx="85" cy="122" r="23" fill="#111" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
-            <circle cx="85" cy="122" r="14" fill="#1a1a1a"/><circle cx="85" cy="122" r="5" fill="rgba(232,28,46,.5)"/>
-            <circle cx="228" cy="122" r="23" fill="#111" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
-            <circle cx="228" cy="122" r="14" fill="#1a1a1a"/><circle cx="228" cy="122" r="5" fill="rgba(232,28,46,.5)"/>
-            <ellipse cx="42" cy="108" rx="13" ry="7" fill="rgba(255,220,80,.2)" stroke="rgba(255,220,80,.3)" stroke-width="1"/>
+      <!-- GROUP BD -->
+      <div class="car-c rv d3" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">BD</div>
+          <div class="car-cat">Economy Diesel</div>
+          <div class="car-group-code">BD</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d0dce8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(170,200,230,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#a8bcd0"/><circle cx="53" cy="68" r="9" fill="#bccede"/><circle cx="53" cy="68" r="3.5" fill="#8aa4bc"/>
+            <circle cx="152" cy="68" r="15" fill="#a8bcd0"/><circle cx="152" cy="68" r="9" fill="#bccede"/><circle cx="152" cy="68" r="3.5" fill="#8aa4bc"/>
           </svg>
-          <div class="car-cat">Sedan</div>
         </div>
         <div class="car-c-body">
-          <div class="car-name">Executive Sedan</div>
-          <div class="car-type-lbl">Επαγγελματικό • Άνετο • Στιλάτο</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Ντίζελ</span>
-            <span class="spec-i">⚙️ Αυτόματο</span>
-            <span class="spec-i">👤 5 θέσεις</span>
-            <span class="spec-i">❄️ A/C</span>
+          <div class="car-name">Fiat Panda Diesel <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Economy Diesel — 5 πόρτες · Χειροκίνητο · Diesel</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">31€</span></td><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">19€</span></td></tr>
+            </table>
           </div>
-          <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">18€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
-          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">19€ <span>/ ημέρα</span></div></div><a href="contact.html?group=BD" class="btn-dark">Κράτηση</a></div>
         </div>
       </div>
 
-      <!-- Sedan 2 -->
+      <!-- GROUP C1 -->
+      <div class="car-c rv d1" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">C1</div>
+          <div class="car-cat">Compact</div>
+          <div class="car-group-code">C1</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d8e4f0" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(180,210,240,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#b8cce0"/><circle cx="53" cy="68" r="9" fill="#ccdaeb"/><circle cx="53" cy="68" r="3.5" fill="#9ab4cc"/>
+            <circle cx="152" cy="68" r="15" fill="#b8cce0"/><circle cx="152" cy="68" r="9" fill="#ccdaeb"/><circle cx="152" cy="68" r="3.5" fill="#9ab4cc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Peugeot 208 <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Compact — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">20€</span></td><td><span class="rate">17€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">17€ <span>/ ημέρα</span></div></div><a href="contact.html?group=C1" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP CD -->
+      <div class="car-c rv d2" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">CD</div>
+          <div class="car-cat">Compact Diesel</div>
+          <div class="car-group-code">CD</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d0dce8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(170,200,230,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.3)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#a8bcd0"/><circle cx="53" cy="68" r="9" fill="#bccede"/><circle cx="53" cy="68" r="3.5" fill="#8aa4bc"/>
+            <circle cx="152" cy="68" r="15" fill="#a8bcd0"/><circle cx="152" cy="68" r="9" fill="#bccede"/><circle cx="152" cy="68" r="3.5" fill="#8aa4bc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Peugeot 208 Diesel <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Compact Diesel — 5 πόρτες · Χειροκίνητο · Diesel</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">31€</span></td><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">19€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">19€ <span>/ ημέρα</span></div></div><a href="contact.html?group=CD" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP GA -->
+      <div class="car-c rv d3" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">GA</div>
+          <div class="car-cat">Mini Auto</div>
+          <div class="car-group-code">GA</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#dce8f4" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(190,220,248,.45)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.4)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#b8cce0"/><circle cx="53" cy="68" r="9" fill="#ccdaeb"/><circle cx="53" cy="68" r="3.5" fill="#9ab4cc"/>
+            <circle cx="152" cy="68" r="15" fill="#b8cce0"/><circle cx="152" cy="68" r="9" fill="#ccdaeb"/><circle cx="152" cy="68" r="3.5" fill="#9ab4cc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Hyundai i10 Auto <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Mini Auto — 5 πόρτες · Αυτόματο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">35€</span></td><td><span class="rate">32€</span></td><td><span class="rate">28€</span></td><td><span class="rate">24€</span></td><td><span class="rate">21€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 4 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">21€ <span>/ ημέρα</span></div></div><a href="contact.html?group=GA" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP D -->
+      <div class="car-c rv d1" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">D</div>
+          <div class="car-cat">Economy+</div>
+          <div class="car-group-code">D</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d8e4f0" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(180,210,240,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#b8cce0"/><circle cx="53" cy="68" r="9" fill="#ccdaeb"/><circle cx="53" cy="68" r="3.5" fill="#9ab4cc"/>
+            <circle cx="152" cy="68" r="15" fill="#b8cce0"/><circle cx="152" cy="68" r="9" fill="#ccdaeb"/><circle cx="152" cy="68" r="3.5" fill="#9ab4cc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Seat Ibiza <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Economy+ — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">20€</span></td><td><span class="rate">17€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">17€ <span>/ ημέρα</span></div></div><a href="contact.html?group=D" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP DD -->
+      <div class="car-c rv d2" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">DD</div>
+          <div class="car-cat">Economy+ Diesel</div>
+          <div class="car-group-code">DD</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#d0dce8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(170,200,230,.4)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.3)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#a8bcd0"/><circle cx="53" cy="68" r="9" fill="#bccede"/><circle cx="53" cy="68" r="3.5" fill="#8aa4bc"/>
+            <circle cx="152" cy="68" r="15" fill="#a8bcd0"/><circle cx="152" cy="68" r="9" fill="#bccede"/><circle cx="152" cy="68" r="3.5" fill="#8aa4bc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Seat Ibiza Diesel <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Economy+ Diesel — 5 πόρτες · Χειροκίνητο · Diesel</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">31€</span></td><td><span class="rate">28€</span></td><td><span class="rate">25€</span></td><td><span class="rate">22€</span></td><td><span class="rate">19€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">19€ <span>/ ημέρα</span></div></div><a href="contact.html?group=DD" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP G -->
+      <div class="car-c rv d3" data-cat="economy">
+        <div class="car-c-img bg-economy">
+          <div class="group-code-bg">G</div>
+          <div class="car-cat">Economy+ Auto</div>
+          <div class="car-group-code">G</div>
+          <svg class="car-shape" viewBox="0 0 200 90" width="150" fill="none">
+            <ellipse cx="100" cy="82" rx="90" ry="7" fill="rgba(0,0,0,.06)"/>
+            <path d="M15 65 Q15 50 28 46 L55 40 L75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L180 44 Q188 48 188 60 L188 65Z" fill="#dce8f4" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M75 20 Q84 12 100 11 L120 11 Q136 11 144 20 L162 40 L55 40Z" fill="rgba(190,220,248,.45)"/>
+            <path d="M80 38 L82 22 Q87 14 100 13 L120 13 Q132 13 138 22 L152 38Z" fill="rgba(255,255,255,.4)"/>
+            <line x1="113" y1="13" x2="111" y2="38" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/>
+            <rect x="15" y="58" width="173" height="3" rx="1.5" fill="rgba(232,28,46,.6)"/>
+            <circle cx="53" cy="68" r="15" fill="#b8cce0"/><circle cx="53" cy="68" r="9" fill="#ccdaeb"/><circle cx="53" cy="68" r="3.5" fill="#9ab4cc"/>
+            <circle cx="152" cy="68" r="15" fill="#b8cce0"/><circle cx="152" cy="68" r="9" fill="#ccdaeb"/><circle cx="152" cy="68" r="3.5" fill="#9ab4cc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Seat Ibiza Auto <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Economy+ Auto — 5 πόρτες · Αυτόματο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">35€</span></td><td><span class="rate">32€</span></td><td><span class="rate">28€</span></td><td><span class="rate">24€</span></td><td><span class="rate">21€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 500€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">21€ <span>/ ημέρα</span></div></div><a href="contact.html?group=G" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP E -->
       <div class="car-c rv d1" data-cat="sedan">
-        <div class="car-c-img" style="background:linear-gradient(135deg,#e8e8e8,#d8d8d8)">
-          <svg viewBox="0 0 300 160" style="width:85%">
-            <ellipse cx="150" cy="140" rx="130" ry="11" fill="rgba(0,0,0,.07)"/>
-            <path d="M22 116 Q22 94 42 89 L86 81 L116 47 Q128 33 152 31 L184 30 Q208 30 222 47 L248 81 L268 87 Q279 91 279 110 L279 116 Z" fill="#c0c0c0"/>
-            <path d="M116 47 Q128 33 152 31 L184 30 Q208 30 222 47 L248 81 L86 81 Z" fill="#b0b0b0"/>
-            <path d="M124 79 L128 51 Q134 38 152 34 L184 33 Q204 33 215 49 L232 79 Z" fill="rgba(100,160,220,.2)" stroke="rgba(100,150,200,.25)" stroke-width="1"/>
-            <line x1="170" y1="34" x2="167" y2="79" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
-            <rect x="22" y="105" width="257" height="4" rx="2" fill="rgba(232,28,46,.7)"/>
-            <circle cx="88" cy="120" r="22" fill="#888"/><circle cx="88" cy="120" r="13" fill="#aaa"/><circle cx="88" cy="120" r="5" fill="#666"/>
-            <circle cx="224" cy="120" r="22" fill="#888"/><circle cx="224" cy="120" r="13" fill="#aaa"/><circle cx="224" cy="120" r="5" fill="#666"/>
+        <div class="car-c-img bg-sedan">
+          <div class="group-code-bg">E</div>
+          <div class="car-cat">Compact+</div>
+          <div class="car-group-code">E</div>
+          <svg class="car-shape" viewBox="0 0 220 95" width="160" fill="none">
+            <ellipse cx="110" cy="86" rx="100" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M12 68 Q12 51 27 47 L60 41 L85 18 Q96 8 114 7 L140 7 Q160 7 170 18 L190 41 L202 46 Q212 50 212 64 L212 68Z" fill="#e8dcd4" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M85 18 Q96 8 114 7 L140 7 Q160 7 170 18 L190 41 L60 41Z" fill="rgba(200,180,160,.4)"/>
+            <path d="M90 39 L92 21 Q98 11 114 9 L140 9 Q156 9 164 21 L180 39Z" fill="rgba(255,255,255,.3)"/>
+            <line x1="127" y1="9" x2="125" y2="39" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
+            <rect x="12" y="61" width="200" height="3" rx="1.5" fill="rgba(232,28,46,.7)"/>
+            <circle cx="58" cy="73" r="16" fill="#c8b8a8"/><circle cx="58" cy="73" r="10" fill="#d8c8b8"/><circle cx="58" cy="73" r="4" fill="#b0a090"/>
+            <circle cx="172" cy="73" r="16" fill="#c8b8a8"/><circle cx="172" cy="73" r="10" fill="#d8c8b8"/><circle cx="172" cy="73" r="4" fill="#b0a090"/>
           </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Hyundai i30 <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Compact+ — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">42€</span></td><td><span class="rate">38€</span></td><td><span class="rate">34€</span></td><td><span class="rate">29€</span></td><td><span class="rate">25€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 700€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">25€ <span>/ ημέρα</span></div></div><a href="contact.html?group=E" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP ED -->
+      <div class="car-c rv d2" data-cat="sedan">
+        <div class="car-c-img bg-sedan">
+          <div class="group-code-bg">ED</div>
+          <div class="car-cat">Compact+ Diesel</div>
+          <div class="car-group-code">ED</div>
+          <svg class="car-shape" viewBox="0 0 220 95" width="160" fill="none">
+            <ellipse cx="110" cy="86" rx="100" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M12 68 Q12 51 27 47 L60 41 L85 18 Q96 8 114 7 L140 7 Q160 7 170 18 L190 41 L202 46 Q212 50 212 64 L212 68Z" fill="#ddd0c8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M85 18 Q96 8 114 7 L140 7 Q160 7 170 18 L190 41 L60 41Z" fill="rgba(190,170,150,.4)"/>
+            <path d="M90 39 L92 21 Q98 11 114 9 L140 9 Q156 9 164 21 L180 39Z" fill="rgba(255,255,255,.28)"/>
+            <line x1="127" y1="9" x2="125" y2="39" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+            <rect x="12" y="61" width="200" height="3" rx="1.5" fill="rgba(232,28,46,.7)"/>
+            <circle cx="58" cy="73" r="16" fill="#b8a898"/><circle cx="58" cy="73" r="10" fill="#c8b8a8"/><circle cx="58" cy="73" r="4" fill="#a09080"/>
+            <circle cx="172" cy="73" r="16" fill="#b8a898"/><circle cx="172" cy="73" r="10" fill="#c8b8a8"/><circle cx="172" cy="73" r="4" fill="#a09080"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Hyundai i30 Diesel <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Compact+ Diesel — 5 πόρτες · Χειροκίνητο · Diesel</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">45€</span></td><td><span class="rate">40€</span></td><td><span class="rate">36€</span></td><td><span class="rate">31€</span></td><td><span class="rate">27€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 700€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">27€ <span>/ ημέρα</span></div></div><a href="contact.html?group=ED" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP E1 -->
+      <div class="car-c rv d3" data-cat="sedan">
+        <div class="car-c-img bg-sedan">
+          <div class="group-code-bg">E1</div>
           <div class="car-cat">Sedan</div>
+          <div class="car-group-code">E1</div>
+          <svg class="car-shape" viewBox="0 0 220 95" width="160" fill="none">
+            <ellipse cx="110" cy="86" rx="100" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M12 68 Q12 51 27 47 L60 41 L90 22 Q100 11 118 10 L148 10 Q166 10 176 22 L198 41 L208 46 Q216 50 216 64 L216 68Z" fill="#e8dcd4" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M90 22 Q100 11 118 10 L148 10 Q166 10 176 22 L198 41 L60 41Z" fill="rgba(200,185,168,.4)"/>
+            <path d="M95 39 L97 24 Q104 13 118 12 L148 12 Q162 12 170 24 L190 39Z" fill="rgba(255,255,255,.32)"/>
+            <line x1="133" y1="12" x2="131" y2="39" stroke="rgba(255,255,255,.48)" stroke-width="1.5"/>
+            <rect x="12" y="61" width="204" height="3" rx="1.5" fill="rgba(232,28,46,.7)"/>
+            <circle cx="60" cy="73" r="16" fill="#c8b8a8"/><circle cx="60" cy="73" r="10" fill="#d8c8b8"/><circle cx="60" cy="73" r="4" fill="#b0a090"/>
+            <circle cx="178" cy="73" r="16" fill="#c8b8a8"/><circle cx="178" cy="73" r="10" fill="#d8c8b8"/><circle cx="178" cy="73" r="4" fill="#b0a090"/>
+          </svg>
         </div>
         <div class="car-c-body">
-          <div class="car-name">Family Sedan</div>
-          <div class="car-type-lbl">Ιδανικό για οικογένεια ή επαγγελματική χρήση</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Βενζίνη</span>
-            <span class="spec-i">⚙️ Χειροκίνητο</span>
-            <span class="spec-i">👤 5 θέσεις</span>
-            <span class="spec-i">🧳 Μεγάλο πορτ-μπαγκάζ</span>
+          <div class="car-name">Fiat Tipo Sedan <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Sedan — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">42€</span></td><td><span class="rate">38€</span></td><td><span class="rate">34€</span></td><td><span class="rate">29€</span></td><td><span class="rate">25€</span></td></tr>
+            </table>
           </div>
-          <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">16€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
-          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 700€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">25€ <span>/ ημέρα</span></div></div><a href="contact.html?group=E1" class="btn-dark">Κράτηση</a></div>
         </div>
       </div>
 
-      <!-- SUV 1 -->
+      <!-- GROUP G1 -->
+      <div class="car-c rv d1" data-cat="sedan">
+        <div class="car-c-img bg-sedan">
+          <div class="group-code-bg">G1</div>
+          <div class="car-cat">Crossover Auto</div>
+          <div class="car-group-code">G1</div>
+          <svg class="car-shape" viewBox="0 0 220 95" width="160" fill="none">
+            <ellipse cx="110" cy="86" rx="100" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M12 68 Q12 51 27 47 L60 41 L85 18 Q96 8 114 7 L140 7 Q160 7 170 18 L190 41 L202 46 Q212 50 212 64 L212 68Z" fill="#ecdfd8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M85 18 Q96 8 114 7 L140 7 Q160 7 170 18 L190 41 L60 41Z" fill="rgba(210,190,175,.4)"/>
+            <path d="M90 39 L92 21 Q98 11 114 9 L140 9 Q156 9 164 21 L180 39Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="127" y1="9" x2="125" y2="39" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="12" y="61" width="200" height="3" rx="1.5" fill="rgba(232,28,46,.7)"/>
+            <circle cx="58" cy="73" r="16" fill="#c8b8a8"/><circle cx="58" cy="73" r="10" fill="#d8c8b8"/><circle cx="58" cy="73" r="4" fill="#b0a090"/>
+            <circle cx="172" cy="73" r="16" fill="#c8b8a8"/><circle cx="172" cy="73" r="10" fill="#d8c8b8"/><circle cx="172" cy="73" r="4" fill="#b0a090"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Kia Stonic Auto <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Crossover Auto — 5 πόρτες · Αυτόματο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">49€</span></td><td><span class="rate">44€</span></td><td><span class="rate">39€</span></td><td><span class="rate">34€</span></td><td><span class="rate">29€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 700€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">29€ <span>/ ημέρα</span></div></div><a href="contact.html?group=G1" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP G2 -->
+      <div class="car-c rv d2" data-cat="sedan">
+        <div class="car-c-img bg-sedan">
+          <div class="group-code-bg">G2</div>
+          <div class="car-cat">Sedan Auto</div>
+          <div class="car-group-code">G2</div>
+          <svg class="car-shape" viewBox="0 0 220 95" width="160" fill="none">
+            <ellipse cx="110" cy="86" rx="100" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M12 68 Q12 51 27 47 L60 41 L90 22 Q100 11 118 10 L148 10 Q166 10 176 22 L198 41 L208 46 Q216 50 216 64 L216 68Z" fill="#ecdfd8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M90 22 Q100 11 118 10 L148 10 Q166 10 176 22 L198 41 L60 41Z" fill="rgba(210,190,175,.4)"/>
+            <path d="M95 39 L97 24 Q104 13 118 12 L148 12 Q162 12 170 24 L190 39Z" fill="rgba(255,255,255,.32)"/>
+            <line x1="133" y1="12" x2="131" y2="39" stroke="rgba(255,255,255,.48)" stroke-width="1.5"/>
+            <rect x="12" y="61" width="204" height="3" rx="1.5" fill="rgba(232,28,46,.7)"/>
+            <circle cx="60" cy="73" r="16" fill="#c8b8a8"/><circle cx="60" cy="73" r="10" fill="#d8c8b8"/><circle cx="60" cy="73" r="4" fill="#b0a090"/>
+            <circle cx="178" cy="73" r="16" fill="#c8b8a8"/><circle cx="178" cy="73" r="10" fill="#d8c8b8"/><circle cx="178" cy="73" r="4" fill="#b0a090"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Fiat Tipo Sedan Auto <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Sedan Auto — 5 πόρτες · Αυτόματο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">49€</span></td><td><span class="rate">44€</span></td><td><span class="rate">39€</span></td><td><span class="rate">34€</span></td><td><span class="rate">29€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 700€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">29€ <span>/ ημέρα</span></div></div><a href="contact.html?group=G2" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP S -->
+      <div class="car-c rv d3" data-cat="sedan">
+        <div class="car-c-img bg-sedan">
+          <div class="group-code-bg">S</div>
+          <div class="car-cat">Station Wagon</div>
+          <div class="car-group-code">S</div>
+          <svg class="car-shape" viewBox="0 0 240 95" width="175" fill="none">
+            <ellipse cx="120" cy="86" rx="108" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M10 68 Q10 51 26 47 L62 41 L88 20 Q98 10 116 9 L168 9 Q186 9 192 18 L210 41 L220 46 Q228 50 228 64 L228 68Z" fill="#e8dcd4" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M88 20 Q98 10 116 9 L168 9 Q186 9 192 18 L210 41 L62 41Z" fill="rgba(200,185,168,.4)"/>
+            <path d="M94 39 L96 22 Q103 12 116 11 L168 11 Q182 11 188 20 L206 39Z" fill="rgba(255,255,255,.3)"/>
+            <rect x="10" y="61" width="218" height="3" rx="1.5" fill="rgba(232,28,46,.7)"/>
+            <circle cx="60" cy="73" r="16" fill="#c8b8a8"/><circle cx="60" cy="73" r="10" fill="#d8c8b8"/><circle cx="60" cy="73" r="4" fill="#b0a090"/>
+            <circle cx="190" cy="73" r="16" fill="#c8b8a8"/><circle cx="190" cy="73" r="10" fill="#d8c8b8"/><circle cx="190" cy="73" r="4" fill="#b0a090"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Peugeot 308 Station <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Station Wagon — 5 πόρτες · Χειροκίνητο · Μικτό</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">64€</span></td><td><span class="rate">58€</span></td><td><span class="rate">51€</span></td><td><span class="rate">45€</span></td><td><span class="rate">38€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 900€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">38€ <span>/ ημέρα</span></div></div><a href="contact.html?group=S" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP J1 -->
+      <div class="car-c rv d1" data-cat="suv">
+        <div class="car-c-img bg-suv">
+          <div class="group-code-bg">J1</div>
+          <div class="car-cat">Small SUV</div>
+          <div class="car-group-code">J1</div>
+          <svg class="car-shape" viewBox="0 0 230 100" width="168" fill="none">
+            <ellipse cx="115" cy="91" rx="104" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M10 72 Q10 54 28 49 L68 42 L94 18 Q105 7 124 6 L152 6 Q172 6 182 18 L204 42 L216 48 Q225 52 225 67 L225 72Z" fill="#d8eadc" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M94 18 Q105 7 124 6 L152 6 Q172 6 182 18 L204 42 L68 42Z" fill="rgba(170,210,180,.4)"/>
+            <path d="M100 40 L102 21 Q109 9 124 8 L152 8 Q168 8 176 20 L196 40Z" fill="rgba(255,255,255,.32)"/>
+            <line x1="138" y1="8" x2="136" y2="40" stroke="rgba(255,255,255,.48)" stroke-width="1.5"/>
+            <rect x="10" y="64" width="215" height="3.5" rx="1.75" fill="rgba(232,28,46,.65)"/>
+            <circle cx="66" cy="77" r="18" fill="#b8d0bc"/><circle cx="66" cy="77" r="11" fill="#c8dece"/><circle cx="66" cy="77" r="4.5" fill="#9ab8a0"/>
+            <circle cx="192" cy="77" r="18" fill="#b8d0bc"/><circle cx="192" cy="77" r="11" fill="#c8dece"/><circle cx="192" cy="77" r="4.5" fill="#9ab8a0"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Skoda Kamiq <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Small SUV — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">42€</span></td><td><span class="rate">38€</span></td><td><span class="rate">34€</span></td><td><span class="rate">29€</span></td><td><span class="rate">25€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 700€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">25€ <span>/ ημέρα</span></div></div><a href="contact.html?group=J1" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP J2 -->
       <div class="car-c rv d2" data-cat="suv">
-        <div class="car-c-img" style="background:linear-gradient(135deg,#e0ede0,#cce0cc)">
-          <svg viewBox="0 0 320 175" style="width:88%">
-            <ellipse cx="160" cy="152" rx="142" ry="13" fill="rgba(0,0,0,.07)"/>
-            <path d="M18 125 Q18 100 40 94 L92 84 L128 46 Q142 29 166 27 L202 26 Q228 26 242 46 L268 84 L286 91 Q298 96 298 116 L298 125 Z" fill="#e8ede8"/>
-            <path d="M128 46 Q142 29 166 27 L202 26 Q228 26 242 46 L268 84 L92 84 Z" fill="#d8e4d8"/>
-            <path d="M136 82 L140 50 Q148 34 165 30 L202 29 Q224 29 236 47 L256 82 Z" fill="rgba(80,180,100,.18)" stroke="rgba(60,160,80,.2)" stroke-width="1"/>
-            <line x1="182" y1="30" x2="179" y2="82" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
-            <rect x="18" y="113" width="280" height="5" rx="2.5" fill="rgba(232,28,46,.65)"/>
-            <circle cx="90" cy="130" r="25" fill="#888"/><circle cx="90" cy="130" r="16" fill="#aaa"/><circle cx="90" cy="130" r="6" fill="#666"/>
-            <circle cx="245" cy="130" r="25" fill="#888"/><circle cx="245" cy="130" r="16" fill="#aaa"/><circle cx="245" cy="130" r="6" fill="#666"/>
-          </svg>
+        <div class="car-c-img bg-suv">
+          <div class="group-code-bg">J2</div>
           <div class="car-cat">SUV</div>
+          <div class="car-group-code">J2</div>
+          <svg class="car-shape" viewBox="0 0 230 100" width="168" fill="none">
+            <ellipse cx="115" cy="91" rx="104" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M10 72 Q10 54 28 49 L68 42 L94 18 Q105 7 124 6 L152 6 Q172 6 182 18 L204 42 L216 48 Q225 52 225 67 L225 72Z" fill="#cce0d0" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M94 18 Q105 7 124 6 L152 6 Q172 6 182 18 L204 42 L68 42Z" fill="rgba(160,205,170,.4)"/>
+            <path d="M100 40 L102 21 Q109 9 124 8 L152 8 Q168 8 176 20 L196 40Z" fill="rgba(255,255,255,.3)"/>
+            <line x1="138" y1="8" x2="136" y2="40" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
+            <rect x="10" y="64" width="215" height="3.5" rx="1.75" fill="rgba(232,28,46,.65)"/>
+            <circle cx="66" cy="77" r="18" fill="#a8c8b0"/><circle cx="66" cy="77" r="11" fill="#b8d4be"/><circle cx="66" cy="77" r="4.5" fill="#8aaa94"/>
+            <circle cx="192" cy="77" r="18" fill="#a8c8b0"/><circle cx="192" cy="77" r="11" fill="#b8d4be"/><circle cx="192" cy="77" r="4.5" fill="#8aaa94"/>
+          </svg>
         </div>
         <div class="car-c-body">
-          <div class="car-name">Compact SUV</div>
-          <div class="car-type-lbl">Ευρύχωρο • Ιδανικό για οικογένεια ή ταξίδι</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Βενζίνη</span>
-            <span class="spec-i">⚙️ Αυτόματο</span>
-            <span class="spec-i">👤 5 θέσεις</span>
-            <span class="spec-i">❄️ A/C</span>
+          <div class="car-name">Peugeot 2008 <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">SUV — 5 πόρτες · Χειροκίνητο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">62€</span></td><td><span class="rate">56€</span></td><td><span class="rate">50€</span></td><td><span class="rate">43€</span></td><td><span class="rate">37€</span></td></tr>
+            </table>
           </div>
-          <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">25€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
-          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 900€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">37€ <span>/ ημέρα</span></div></div><a href="contact.html?group=J2" class="btn-dark">Κράτηση</a></div>
         </div>
       </div>
 
-      <!-- SUV 2 -->
+      <!-- GROUP JA -->
       <div class="car-c rv d3" data-cat="suv">
-        <div class="car-c-img" style="background:linear-gradient(135deg,#1a1a1a,#2a1a1a)">
-          <svg viewBox="0 0 330 180" style="width:90%">
-            <ellipse cx="165" cy="158" rx="148" ry="13" fill="rgba(232,28,46,.1)"/>
-            <path d="M14 128 Q14 102 38 96 L95 86 L132 46 Q148 27 172 25 L210 24 Q238 24 252 46 L278 86 L298 93 Q312 98 312 120 L312 128 Z" fill="#1e1e1e"/>
-            <path d="M132 46 Q148 27 172 25 L210 24 Q238 24 252 46 L278 86 L95 86 Z" fill="#2a2a2a"/>
-            <path d="M140 84 L145 50 Q152 32 170 28 L210 27 Q234 27 246 48 L268 84 Z" fill="rgba(60,100,180,.2)" stroke="rgba(80,120,200,.22)" stroke-width="1"/>
-            <line x1="186" y1="28" x2="183" y2="84" stroke="rgba(255,255,255,.08)" stroke-width="1.5"/>
-            <rect x="14" y="116" width="298" height="5" rx="2.5" fill="rgba(232,28,46,.8)"/>
-            <circle cx="95" cy="132" r="26" fill="#111" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
-            <circle cx="95" cy="132" r="16" fill="#1a1a1a"/><circle cx="95" cy="132" r="6" fill="rgba(232,28,46,.4)"/>
-            <circle cx="256" cy="132" r="26" fill="#111" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
-            <circle cx="256" cy="132" r="16" fill="#1a1a1a"/><circle cx="256" cy="132" r="6" fill="rgba(232,28,46,.4)"/>
-            <ellipse cx="44" cy="118" rx="14" ry="8" fill="rgba(255,220,80,.18)" stroke="rgba(255,220,80,.25)" stroke-width="1"/>
+        <div class="car-c-img bg-suv">
+          <div class="group-code-bg">JA</div>
+          <div class="car-cat">SUV Auto</div>
+          <div class="car-group-code">JA</div>
+          <svg class="car-shape" viewBox="0 0 230 100" width="168" fill="none">
+            <ellipse cx="115" cy="91" rx="104" ry="8" fill="rgba(0,0,0,.07)"/>
+            <path d="M10 72 Q10 54 28 49 L68 42 L94 18 Q105 7 124 6 L152 6 Q172 6 182 18 L204 42 L216 48 Q225 52 225 67 L225 72Z" fill="#d4e8d8" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M94 18 Q105 7 124 6 L152 6 Q172 6 182 18 L204 42 L68 42Z" fill="rgba(175,215,185,.45)"/>
+            <path d="M100 40 L102 21 Q109 9 124 8 L152 8 Q168 8 176 20 L196 40Z" fill="rgba(255,255,255,.35)"/>
+            <line x1="138" y1="8" x2="136" y2="40" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <rect x="10" y="64" width="215" height="3.5" rx="1.75" fill="rgba(232,28,46,.65)"/>
+            <circle cx="66" cy="77" r="18" fill="#b0ccb8"/><circle cx="66" cy="77" r="11" fill="#c0d8c8"/><circle cx="66" cy="77" r="4.5" fill="#90b09a"/>
+            <circle cx="192" cy="77" r="18" fill="#b0ccb8"/><circle cx="192" cy="77" r="11" fill="#c0d8c8"/><circle cx="192" cy="77" r="4.5" fill="#90b09a"/>
           </svg>
-          <div class="car-cat">SUV</div>
         </div>
         <div class="car-c-body">
-          <div class="car-name">Large SUV Premium</div>
-          <div class="car-type-lbl">Μεγάλο • 7 θέσεων • Πολυτελές</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Ντίζελ</span>
-            <span class="spec-i">⚙️ Αυτόματο</span>
-            <span class="spec-i">👤 7 θέσεις</span>
-            <span class="spec-i">🧳 XL χώρος</span>
+          <div class="car-name">Nissan Qashqai Auto <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">SUV Auto — 5 πόρτες · Αυτόματο · Βενζίνη</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">69€</span></td><td><span class="rate">62€</span></td><td><span class="rate">55€</span></td><td><span class="rate">48€</span></td><td><span class="rate">41€</span></td></tr>
+            </table>
           </div>
-          <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">35€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
-          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 900€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">41€ <span>/ ημέρα</span></div></div><a href="contact.html?group=JA" class="btn-dark">Κράτηση</a></div>
         </div>
       </div>
 
-      <!-- Van -->
-      <div class="car-c rv d1" data-cat="van">
-        <div class="car-c-img" style="background:linear-gradient(135deg,#f0f4f8,#e4eaf0)">
-          <svg viewBox="0 0 340 175" style="width:92%">
-            <ellipse cx="170" cy="152" rx="150" ry="12" fill="rgba(0,0,0,.06)"/>
-            <path d="M14 122 Q14 100 36 95 L100 85 L130 45 Q138 32 155 30 L270 30 Q288 30 298 45 L310 85 L318 90 Q326 95 326 115 L326 122 Z" fill="#e0e8f0"/>
-            <rect x="100" y="30" width="170" height="55" rx="4" fill="rgba(100,160,220,.15)" stroke="rgba(100,150,200,.2)" stroke-width="1"/>
-            <line x1="200" y1="30" x2="200" y2="85" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-            <line x1="150" y1="30" x2="150" y2="85" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
-            <line x1="250" y1="30" x2="250" y2="85" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
-            <rect x="14" y="110" width="312" height="5" rx="2.5" fill="rgba(232,28,46,.6)"/>
-            <circle cx="88" cy="127" r="24" fill="#888"/><circle cx="88" cy="127" r="15" fill="#aaa"/><circle cx="88" cy="127" r="5" fill="#666"/>
-            <circle cx="266" cy="127" r="24" fill="#888"/><circle cx="266" cy="127" r="15" fill="#aaa"/><circle cx="266" cy="127" r="5" fill="#666"/>
+      <!-- GROUP XM -->
+      <div class="car-c rv d1" data-cat="suv">
+        <div class="car-c-img bg-suv">
+          <div class="group-code-bg">XM</div>
+          <div class="car-cat">Large SUV</div>
+          <div class="car-group-code">XM</div>
+          <svg class="car-shape" viewBox="0 0 250 105" width="185" fill="none">
+            <ellipse cx="125" cy="95" rx="112" ry="9" fill="rgba(0,0,0,.07)"/>
+            <path d="M8 76 Q8 56 28 51 L72 44 L100 18 Q112 5 132 4 L165 4 Q188 4 198 18 L220 44 L234 50 Q244 54 244 70 L244 76Z" fill="#c8e0cc" stroke="rgba(232,28,46,.3)" stroke-width="3"/>
+            <path d="M100 18 Q112 5 132 4 L165 4 Q188 4 198 18 L220 44 L72 44Z" fill="rgba(155,205,165,.42)"/>
+            <path d="M106 42 L108 21 Q116 7 132 6 L165 6 Q184 6 192 20 L214 42Z" fill="rgba(255,255,255,.3)"/>
+            <rect x="8" y="68" width="236" height="4" rx="2" fill="rgba(232,28,46,.65)"/>
+            <circle cx="70" cy="82" r="20" fill="#a0c0a8"/><circle cx="70" cy="82" r="12" fill="#b0ccb8"/><circle cx="70" cy="82" r="5" fill="#80a088"/>
+            <circle cx="208" cy="82" r="20" fill="#a0c0a8"/><circle cx="208" cy="82" r="12" fill="#b0ccb8"/><circle cx="208" cy="82" r="5" fill="#80a088"/>
           </svg>
-          <div class="car-cat">Van / Minivan</div>
         </div>
         <div class="car-c-body">
-          <div class="car-name">People Carrier</div>
-          <div class="car-type-lbl">Ιδανικό για ομάδες, οικογένειες & μεταφορές</div>
-          <div class="car-specs">
-            <span class="spec-i">⛽ Ντίζελ</span>
-            <span class="spec-i">⚙️ Χειροκίνητο</span>
-            <span class="spec-i">👤 8 θέσεις</span>
-            <span class="spec-i">🧳 Μεγάλος χώρος</span>
+          <div class="car-name">Kia Sportage <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Large SUV — 5 πόρτες · Μικτό · Μικτό</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">92€</span></td><td><span class="rate">83€</span></td><td><span class="rate">74€</span></td><td><span class="rate">64€</span></td><td><span class="rate">55€</span></td></tr>
+            </table>
           </div>
-          <div class="car-c-ft">
-            <div><div class="price-fr">από</div><div class="price-big">40€ <span>/ ημέρα</span></div></div>
-            <a href="contact.html" class="btn-dark">Κράτηση</a>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 1.200€ &nbsp;·&nbsp; 5 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">55€ <span>/ ημέρα</span></div></div><a href="contact.html?group=XM" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP F -->
+      <div class="car-c rv d1" data-cat="van">
+        <div class="car-c-img bg-van">
+          <div class="group-code-bg">F</div>
+          <div class="car-cat">7 Θέσεων</div>
+          <div class="car-group-code">F</div>
+          <svg class="car-shape" viewBox="0 0 260 100" width="190" fill="none">
+            <ellipse cx="130" cy="91" rx="116" ry="8" fill="rgba(0,0,0,.06)"/>
+            <path d="M10 72 Q10 54 30 49 L72 42 L96 20 Q104 11 120 10 L196 10 Q214 10 220 20 L230 42 L238 47 Q246 51 246 66 L246 72Z" fill="#dce6f4" stroke="rgba(232,28,46,.28)" stroke-width="3"/>
+            <rect x="96" y="10" width="124" height="32" rx="3" fill="rgba(175,200,235,.35)"/>
+            <line x1="162" y1="10" x2="162" y2="42" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+            <line x1="130" y1="10" x2="130" y2="42" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+            <line x1="196" y1="10" x2="196" y2="42" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+            <rect x="10" y="65" width="236" height="3.5" rx="1.75" fill="rgba(232,28,46,.6)"/>
+            <circle cx="70" cy="78" r="17" fill="#b0c4dc"/><circle cx="70" cy="78" r="10" fill="#c2d2e8"/><circle cx="70" cy="78" r="4" fill="#90a8c4"/>
+            <circle cx="210" cy="78" r="17" fill="#b0c4dc"/><circle cx="210" cy="78" r="10" fill="#c2d2e8"/><circle cx="210" cy="78" r="4" fill="#90a8c4"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Fiat Doblo 7θ. <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">7 Θέσεων — 5 πόρτες · Χειροκίνητο · Μικτό</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">64€</span></td><td><span class="rate">58€</span></td><td><span class="rate">51€</span></td><td><span class="rate">45€</span></td><td><span class="rate">38€</span></td></tr>
+            </table>
           </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 900€ &nbsp;·&nbsp; 7 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">38€ <span>/ ημέρα</span></div></div><a href="contact.html?group=F" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP KD -->
+      <div class="car-c rv d2" data-cat="van">
+        <div class="car-c-img bg-van">
+          <div class="group-code-bg">KD</div>
+          <div class="car-cat">Van 9 Θέσεων</div>
+          <div class="car-group-code">KD</div>
+          <svg class="car-shape" viewBox="0 0 270 105" width="196" fill="none">
+            <ellipse cx="135" cy="95" rx="120" ry="8" fill="rgba(0,0,0,.06)"/>
+            <path d="M10 76 Q10 57 32 52 L78 44 L105 20 Q114 10 132 9 L210 9 Q230 9 236 20 L248 44 L256 50 Q264 54 264 70 L264 76Z" fill="#d4e0f2" stroke="rgba(232,28,46,.28)" stroke-width="3"/>
+            <rect x="105" y="9" width="131" height="35" rx="3" fill="rgba(170,195,232,.35)"/>
+            <line x1="172" y1="9" x2="172" y2="44" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+            <line x1="138" y1="9" x2="138" y2="44" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+            <line x1="206" y1="9" x2="206" y2="44" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+            <rect x="10" y="69" width="254" height="3.5" rx="1.75" fill="rgba(232,28,46,.6)"/>
+            <circle cx="76" cy="82" r="18" fill="#a8bcd4"/><circle cx="76" cy="82" r="11" fill="#b8cce0"/><circle cx="76" cy="82" r="4.5" fill="#88a0bc"/>
+            <circle cx="220" cy="82" r="18" fill="#a8bcd4"/><circle cx="220" cy="82" r="11" fill="#b8cce0"/><circle cx="220" cy="82" r="4.5" fill="#88a0bc"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Fiat Talento 9θ. <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Van 9 Θέσεων — 5 πόρτες · Χειροκίνητο · Diesel</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">88€</span></td><td><span class="rate">79€</span></td><td><span class="rate">70€</span></td><td><span class="rate">62€</span></td><td><span class="rate">53€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 1.200€ &nbsp;·&nbsp; 9 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">53€ <span>/ ημέρα</span></div></div><a href="contact.html?group=KD" class="btn-dark">Κράτηση</a></div>
+        </div>
+      </div>
+
+      <!-- GROUP KA -->
+      <div class="car-c rv d3" data-cat="van">
+        <div class="car-c-img bg-van">
+          <div class="group-code-bg">KA</div>
+          <div class="car-cat">Van 9θ. Auto</div>
+          <div class="car-group-code">KA</div>
+          <svg class="car-shape" viewBox="0 0 270 105" width="196" fill="none">
+            <ellipse cx="135" cy="95" rx="120" ry="8" fill="rgba(0,0,0,.06)"/>
+            <path d="M10 76 Q10 57 32 52 L78 44 L105 20 Q114 10 132 9 L210 9 Q230 9 236 20 L248 44 L256 50 Q264 54 264 70 L264 76Z" fill="#dce8f6" stroke="rgba(232,28,46,.28)" stroke-width="3"/>
+            <rect x="105" y="9" width="131" height="35" rx="3" fill="rgba(180,205,240,.38)"/>
+            <line x1="172" y1="9" x2="172" y2="44" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
+            <line x1="138" y1="9" x2="138" y2="44" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+            <line x1="206" y1="9" x2="206" y2="44" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+            <rect x="10" y="69" width="254" height="3.5" rx="1.75" fill="rgba(232,28,46,.6)"/>
+            <circle cx="76" cy="82" r="18" fill="#b0c4dc"/><circle cx="76" cy="82" r="11" fill="#c0d0e8"/><circle cx="76" cy="82" r="4.5" fill="#90a8c4"/>
+            <circle cx="220" cy="82" r="18" fill="#b0c4dc"/><circle cx="220" cy="82" r="11" fill="#c0d0e8"/><circle cx="220" cy="82" r="4.5" fill="#90a8c4"/>
+          </svg>
+        </div>
+        <div class="car-c-body">
+          <div class="car-name">Opel Vivaro Auto 9θ. <span style="font-size:.75rem;color:var(--gray-400)">ή παρόμοιο</span></div>
+          <div class="car-type-lbl">Van 9θ. Auto — 5 πόρτες · Αυτόματο · Diesel</div>
+          <div class="tier-bg" style="margin-bottom:10px">
+            <table class="tier-table">
+              <tr><th>1–2 ημ.</th><th>3–6 ημ.</th><th>7–13 ημ.</th><th>14–29 ημ.</th><th>30+ ημ.</th></tr>
+              <tr><td><span class="rate">95€</span></td><td><span class="rate">86€</span></td><td><span class="rate">76€</span></td><td><span class="rate">66€</span></td><td><span class="rate">57€</span></td></tr>
+            </table>
+          </div>
+          <div class="deposit-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Εγγύηση: 1.200€ &nbsp;·&nbsp; 9 θέσεις</div>
+          <div class="car-c-ft"><div><div class="price-fr">από</div><div class="price-big">57€ <span>/ ημέρα</span></div></div><a href="contact.html?group=KA" class="btn-dark">Κράτηση</a></div>
         </div>
       </div>
 
     </div><!-- end fleet-grid -->
 
-    <!-- Pricing note -->
     <div class="pricing-note rv">
-      <div class="pricing-note-ico">💡</div>
+      <div class="pricing-note-ico">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
       <div class="pricing-note-txt">
-        <strong>Τιμές χωρίς κρυφές χρεώσεις:</strong> Οι τιμές αφορούν ημερήσια ενοικίαση. Για εβδομαδιαία ή μηνιαία ενοικίαση υπάρχουν ειδικές προσφορές. Για ακριβή τιμολόγηση ανάλογα με τις ημερομηνίες σας, <a href="contact.html" style="color:var(--red);font-weight:600">επικοινωνήστε μαζί μας</a>.
+        <strong>Ενδεικτικές τιμές — χωρίς κρυφές χρεώσεις.</strong> Οι τιμές εξαρτώνται από την εποχή, τις ημερομηνίες και την τοποθεσία παραλαβής. 2ος οδηγός δωρεάν. Για ακριβή προσφορά <a href="contact.html" style="color:var(--red);font-weight:600">επικοινωνήστε μαζί μας</a> ή καλέστε <a href="tel:+306983056936" style="color:var(--red);font-weight:600">+30 698 305 6936</a>.
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- CTA BAND -->
 <section class="cta-band">
   <div class="wrap">
     <div class="cta-in">
       <div>
         <div class="cta-title">Δεν βρήκατε αυτό<br/>που ψάχνετε;</div>
-        <div class="cta-sub">Καλέστε μας για να σας βρούμε το ιδανικό αυτοκίνητο για τις ανάγκες σας.</div>
+        <div class="cta-sub">Καλέστε μας — θα βρούμε μαζί το κατάλληλο αυτοκίνητο για εσάς.</div>
       </div>
       <div class="cta-acts">
-        <a href="tel:6983056936" class="btn-wt">
+        <a href="tel:+306983056936" class="btn-wt">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.91 5.91l.73-.73a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          698 305 6936
+          +30 698 305 6936
         </a>
         <a href="contact.html" class="btn-wt-out">Φόρμα Κράτησης →</a>
       </div>
@@ -337,7 +828,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="ft-grid">
@@ -345,9 +835,7 @@
         <a href="index.html" class="nav-logo">Daily<span>Car</span><small>Rentals GR</small></a>
         <p class="ft-desc">Οικονομικές και αξιόπιστες λύσεις ενοικίασης αυτοκινήτων. Χωρίς πιστωτική κάρτα, χωρίς κρυφές χρεώσεις.</p>
         <div class="ft-socials">
-          <a href="https://instagram.com/dailycar.rentalsgr" target="_blank" class="soc-btn" aria-label="Instagram">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
+          <a href="https://instagram.com/dailycar.rentalsgr" target="_blank" class="soc-btn" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
         </div>
       </div>
       <div class="ft-col">
@@ -360,15 +848,28 @@
       <div class="ft-col">
         <h4>Κατηγορίες</h4>
         <a href="fleet.html">Οικονομικά</a>
-        <a href="fleet.html">Sedan</a>
+        <a href="fleet.html">Compact / Sedan</a>
         <a href="fleet.html">SUV</a>
         <a href="fleet.html">Van / Minivan</a>
       </div>
       <div class="ft-col">
         <h4>Επικοινωνία</h4>
-        <div class="ft-ci"><span class="ft-ci-ico">📍</span><div class="ft-ci-txt"><strong>Διεύθυνση</strong>Σπύρου Δάβαρη, Κορωπί 194 00</div></div>
-        <div class="ft-ci"><span class="ft-ci-ico">📞</span><div class="ft-ci-txt"><strong>Κρατήσεις</strong><a href="tel:6983056936" style="color:var(--red)">698 305 6936</a></div></div>
-        <div class="ft-ci"><span class="ft-ci-ico">🕐</span><div class="ft-ci-txt"><strong>Ώρες</strong>Καθημερινά — έως 8:00 μ.μ.</div></div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="ft-ci-txt"><strong>Διεύθυνση</strong>Σπύρου Δάβαρη, Κορωπί 194 00</div>
+        </div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div class="ft-ci-txt"><strong>Κρατήσεις</strong><a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a></div>
+        </div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="ft-ci-txt"><strong>Email</strong><a href="mailto:dailyrentalsgreece@gmail.com" style="color:var(--red)">dailyrentalsgreece@gmail.com</a></div>
+        </div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="ft-ci-txt"><strong>Ώρες</strong>Καθημερινά 08:00–22:00</div>
+        </div>
       </div>
     </div>
     <div class="ft-bot">

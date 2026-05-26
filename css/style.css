@@ -322,3 +322,268 @@ footer { background: var(--black); padding: 80px 0 0; border-top: 1px solid rgba
   .btn-wt,.btn-wt-out{justify-content:center}
   .fleet-grid{grid-template-columns:1fr}
 }
+
+/* ============================================================
+   NEW FUNCTIONAL COMPONENTS
+   ============================================================ */
+
+/* ---- SPINNER KEYFRAME ---- */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- WHATSAPP FAB ---- */
+.wa-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9000;
+  width: 58px;
+  height: 58px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(37,211,102,.45);
+  transition: transform .3s var(--ease-out), box-shadow .3s;
+  animation: wa-pulse 2.5s ease-in-out infinite;
+}
+.wa-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 36px rgba(37,211,102,.55);
+  animation: none;
+}
+@keyframes wa-pulse {
+  0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.35); }
+  50%      { box-shadow: 0 4px 24px rgba(37,211,102,.45), 0 0 0 14px rgba(37,211,102,0); }
+}
+
+/* ---- COOKIE CONSENT BAR ---- */
+.cookie-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10,10,10,.97);
+  backdrop-filter: blur(16px);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 8999;
+  transform: translateY(100%);
+  transition: transform .4s var(--ease-out);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.cookie-bar.visible { transform: translateY(0); }
+.cookie-bar span { font-size: .83rem; color: rgba(255,255,255,.52); }
+.cookie-ok {
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 700;
+  padding: 9px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.cookie-ok:hover { background: var(--red-light); }
+@media(max-width:640px) {
+  .cookie-bar { flex-direction: column; text-align: center; padding: 20px; }
+  .wa-fab { bottom: 20px; right: 16px; }
+}
+
+/* ---- FLEET CARD IMPROVEMENTS ---- */
+.car-c { display: flex; flex-direction: column; }
+.car-c-body { flex: 1; display: flex; flex-direction: column; }
+.car-c-ft { margin-top: auto; }
+
+.car-group-code {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.car-pricing-tiers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: var(--gray-100);
+  border-radius: 8px;
+}
+.tier-item { text-align: center; }
+.tier-days { font-size: .58rem; color: var(--gray-400); font-weight: 500; display: block; margin-bottom: 2px; }
+.tier-price { font-family: var(--font-display); font-size: .78rem; font-weight: 700; color: var(--black); }
+.tier-item:first-child .tier-price { color: var(--red); }
+
+.car-deposit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .65rem;
+  color: var(--gray-400);
+  margin-bottom: 14px;
+}
+
+/* ---- INSURANCE CARD SELECTOR ---- */
+.ins-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.ins-card {
+  position: relative;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: border-color .25s, box-shadow .25s, transform .2s;
+  background: #fff;
+}
+.ins-card:hover { border-color: rgba(232,28,46,.35); transform: translateY(-1px); }
+.ins-card.selected { border-color: var(--red); box-shadow: 0 0 0 3px rgba(232,28,46,.12); }
+.ins-card input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.ins-card-name { font-family: var(--font-display); font-size: .88rem; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.ins-price { font-family: var(--font-display); font-size: .82rem; font-weight: 700; color: var(--red); }
+.ins-deposit { font-size: .7rem; color: var(--gray-400); margin-top: 4px; }
+.ins-desc { font-size: .72rem; color: var(--gray-600); line-height: 1.4; margin-top: 6px; }
+.ins-check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gray-200);
+  border-radius: 50%;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ins-card.selected .ins-check { background: var(--red); border-color: var(--red); }
+.ins-card.selected .ins-check::after { content: ''; width: 5px; height: 5px; background: #fff; border-radius: 50%; display: block; }
+@media(max-width:640px) { .ins-grid { grid-template-columns: 1fr; } }
+
+/* ---- EXTRA SERVICES ---- */
+.extras-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.extra-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 13px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.extra-item:hover { border-color: rgba(232,28,46,.3); background: rgba(232,28,46,.03); }
+.extra-item input { width: 16px; height: 16px; accent-color: var(--red); flex-shrink: 0; cursor: pointer; }
+.extra-label { flex: 1; }
+.extra-name { font-family: var(--font-display); font-size: .8rem; font-weight: 600; color: var(--black); display: block; }
+.extra-cost { font-size: .7rem; color: var(--gray-400); }
+.extra-free { color: #16a34a; font-weight: 600; }
+.extras-note { font-size: .78rem; color: var(--gray-600); margin-top: 10px; padding: 10px 14px; background: rgba(22,163,74,.06); border: 1px solid rgba(22,163,74,.2); border-radius: 8px; }
+@media(max-width:640px) { .extras-grid { grid-template-columns: 1fr; } }
+
+/* ---- PRICING SUMMARY ---- */
+#price-summary {
+  background: var(--gray-100);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin: 20px 0;
+}
+.ps-head {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ps-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .83rem;
+  color: var(--gray-600);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+.ps-amt { font-family: var(--font-display); font-weight: 600; color: var(--black); }
+.ps-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--black);
+}
+.ps-total span:last-child { color: var(--red); font-size: 1.2rem; }
+.ps-note { font-size: .72rem; color: var(--gray-400); margin-top: 10px; line-height: 1.5; }
+
+/* ---- FORM SECTION HEADERS ---- */
+.form-section { margin-bottom: 28px; }
+.form-section-title {
+  font-family: var(--font-display);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+/* ---- FORM ERROR STATES ---- */
+.inp-error { border-color: #dc2626 !important; background: rgba(220,38,38,.04) !important; }
+.field-err { font-size: .75rem; color: #dc2626; margin-top: 5px; font-family: var(--font-display); }
+.form-send-error { background: rgba(220,38,38,.08); border: 1px solid rgba(220,38,38,.3); border-radius: 8px; padding: 12px 16px; font-size: .85rem; color: #dc2626; margin-bottom: 16px; }
+
+/* ---- BOOKING SUCCESS STATE ---- */
+.booking-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 32px;
+  gap: 12px;
+}
+.success-icon { margin-bottom: 8px; }
+.booking-success h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--black); }
+.success-ref { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: .85rem; color: var(--gray-600); margin: 4px 0 8px; }
+.success-ref strong { color: var(--red); font-size: 1rem; }
+.booking-success p { font-size: .9rem; color: var(--gray-600); line-height: 1.6; max-width: 380px; }
+
+/* ---- CONTACT FORM: HOURS NOTE ---- */
+.hours-note { font-size: .78rem; color: var(--gray-600); padding: 10px 14px; background: rgba(232,28,46,.05); border: 1px solid rgba(232,28,46,.15); border-radius: 8px; margin-top: 6px; line-height: 1.5; }
+

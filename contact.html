@@ -4,10 +4,34 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Κράτηση & Επικοινωνία — Daily Car Rentals GR</title>
-  <meta name="description" content="Κάντε κράτηση αυτοκινήτου ή επικοινωνήστε μαζί μας. Τηλέφωνο: 698 305 6936. Κορωπί, Αττική."/>
+  <meta name="description" content="Κάντε κράτηση αυτοκινήτου ή επικοινωνήστε μαζί μας. Τηλέφωνο: +30 698 305 6936. Κορωπί, Αττική."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="Κράτηση — Daily Car Rentals GR"/>
+  <meta property="og:description" content="Κλείστε το αυτοκίνητό σας online. Χωρίς πιστωτική κάρτα, χωρίς κρυφές χρεώσεις."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://dailycargreece.com/contact.html"/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23e81c2e'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='Arial Black' fill='white'>D</text></svg>"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CarRental",
+    "name": "Daily Car Rentals Greece",
+    "telephone": "+306983056936",
+    "email": "dailyrentalsgreece@gmail.com",
+    "url": "https://dailycargreece.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Σπύρου Δάβαρη",
+      "addressLocality": "Κορωπί",
+      "postalCode": "194 00",
+      "addressCountry": "GR"
+    },
+    "openingHours": "Mo-Su 08:00-22:00"
+  }
+  </script>
   <style>
     .map-embed { border-radius: 20px; overflow: hidden; border: 1px solid var(--gray-200); margin-top: 32px; }
     .map-embed iframe { width: 100%; height: 300px; display: block; border: none; filter: grayscale(20%); }
@@ -27,6 +51,60 @@
     .faq-a.open { max-height: 200px; padding-bottom: 20px; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
     .faq-item.open .faq-q { color: var(--red); }
+
+    /* booking form layout */
+    .c-form-wrap { background: #fff; border-radius: 24px; border: 1px solid var(--gray-200); padding: 40px; box-shadow: 0 4px 40px rgba(0,0,0,.06); }
+    .c-form-wrap h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: var(--black); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .c-form-wrap h3 svg { color: var(--red); }
+    .c-form-subtitle { font-size: .85rem; color: var(--gray-500); margin-bottom: 32px; }
+
+    .form-section { margin-bottom: 32px; }
+    .form-section-title { font-family: var(--font-display); font-size: .7rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 8px; }
+    .form-section-title span { background: var(--red); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 800; }
+
+    /* insurance cards */
+    .ins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .ins-grid { grid-template-columns: 1fr; } }
+    .ins-card { border: 2px solid var(--gray-200); border-radius: 14px; padding: 16px; cursor: pointer; transition: border-color .2s, box-shadow .2s, background .2s; position: relative; }
+    .ins-card:hover { border-color: var(--gray-400); }
+    .ins-card.selected { border-color: var(--red); background: rgba(232,28,46,.04); box-shadow: 0 0 0 3px rgba(232,28,46,.1); }
+    .ins-card input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .ins-check { position: absolute; top: 14px; right: 14px; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--gray-300); display: flex; align-items: center; justify-content: center; transition: border-color .2s, background .2s; }
+    .ins-card.selected .ins-check { border-color: var(--red); background: var(--red); }
+    .ins-check-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; opacity: 0; transition: opacity .2s; }
+    .ins-card.selected .ins-check-dot { opacity: 1; }
+    .ins-card-name { font-family: var(--font-display); font-size: .85rem; font-weight: 700; color: var(--black); margin-bottom: 4px; padding-right: 28px; }
+    .ins-price { font-family: var(--font-display); font-size: 1.1rem; font-weight: 900; color: var(--red); margin-bottom: 6px; }
+    .ins-price.free { color: #16a34a; }
+    .ins-desc { font-size: .73rem; color: var(--gray-500); line-height: 1.5; }
+    .ins-deposit { font-size: .72rem; color: var(--gray-400); margin-top: 6px; }
+
+    /* extras */
+    .extras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 500px) { .extras-grid { grid-template-columns: 1fr; } }
+    .extra-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--gray-200); border-radius: 10px; cursor: pointer; transition: border-color .2s, background .2s; }
+    .extra-item:hover { border-color: var(--gray-400); background: #fafafa; }
+    .extra-item input:checked ~ .extra-label { color: var(--black); font-weight: 600; }
+    .extra-item:has(input:checked) { border-color: var(--red); background: rgba(232,28,46,.03); }
+    .extra-cb { accent-color: var(--red); width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+    .extra-label { flex: 1; font-size: .82rem; color: var(--gray-600); }
+    .extra-cost { font-family: var(--font-display); font-size: .8rem; font-weight: 700; color: var(--gray-500); white-space: nowrap; }
+    .extra-free { font-family: var(--font-display); font-size: .75rem; font-weight: 700; color: #16a34a; }
+    .extras-note { font-size: .75rem; color: var(--gray-400); margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+
+    /* price summary */
+    #price-summary { background: #0a0a0a; border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+    .ps-head { font-family: var(--font-display); font-size: .65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 16px; }
+    .ps-line { display: flex; justify-content: space-between; align-items: baseline; font-size: .82rem; color: rgba(255,255,255,.65); margin-bottom: 8px; }
+    .ps-line span:last-child { font-family: var(--font-display); font-weight: 600; color: rgba(255,255,255,.85); white-space: nowrap; margin-left: 12px; }
+    .ps-sep { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 14px 0; }
+    .ps-total { display: flex; justify-content: space-between; align-items: baseline; }
+    .ps-total-label { font-family: var(--font-display); font-size: .8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.6); }
+    .ps-total-amount { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: -1px; }
+    .ps-note { font-size: .7rem; color: rgba(255,255,255,.3); margin-top: 10px; }
+
+    /* info cards */
+    .c-info-ico-svg { width: 36px; height: 36px; background: rgba(232,28,46,.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--red); flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -59,7 +137,7 @@
     <div class="breadcrumb"><a href="index.html">Αρχική</a><span class="breadcrumb-sep">›</span><span>Κράτηση & Επικοινωνία</span></div>
     <div class="pg-header-tag">Άμεση εξυπηρέτηση</div>
     <h1>Κάντε <span>Κράτηση</span></h1>
-    <p>Συμπληρώστε τη φόρμα ή καλέστε μας απευθείας. Απαντάμε άμεσα, κάθε μέρα.</p>
+    <p>Συμπληρώστε τη φόρμα ή καλέστε μας απευθείας. Απαντάμε μέσα σε 1 ώρα, κάθε μέρα 08:00–22:00.</p>
   </div>
 </div>
 
@@ -68,17 +146,17 @@
   <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;text-align:center">
     <div>
       <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Τηλέφωνο Κρατήσεων</div>
-      <a href="tel:6983056936" style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;letter-spacing:-1.5px">698 305 6936</a>
+      <a href="tel:+306983056936" style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;letter-spacing:-1.5px">+30 698 305 6936</a>
     </div>
     <div style="width:1px;height:60px;background:rgba(255,255,255,.2)" class="hide-mobile"></div>
     <div>
-      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Διαθεσιμότητα</div>
-      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">Καθημερινά έως 8:00 μ.μ.</div>
+      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Ώρες Λειτουργίας</div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">Καθημερινά 08:00–22:00</div>
     </div>
     <div style="width:1px;height:60px;background:rgba(255,255,255,.2)" class="hide-mobile"></div>
     <div>
       <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Τιμές από</div>
-      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">10€ / ημέρα</div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">17€ / ημέρα</div>
     </div>
   </div>
 </section>
@@ -87,6 +165,7 @@
 <section class="section">
   <div class="wrap">
     <div class="contact-grid">
+
       <!-- Left info -->
       <div>
         <div class="rv"><div class="s-tag">Πληροφορίες</div></div>
@@ -94,15 +173,29 @@
 
         <div class="c-info-cards" style="margin-top:32px">
           <div class="c-info-c rv d1">
-            <div class="c-info-ico">📞</div>
+            <div class="c-info-ico-svg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
             <div>
               <div class="c-info-lbl">Τηλέφωνο Κρατήσεων</div>
-              <div class="c-info-val"><a href="tel:6983056936" style="color:var(--red)">698 305 6936</a></div>
-              <div class="c-info-sub">Διαθέσιμοι καθημερινά για άμεση εξυπηρέτηση</div>
+              <div class="c-info-val"><a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a></div>
+              <div class="c-info-sub">Διαθέσιμοι καθημερινά 08:00–22:00</div>
+            </div>
+          </div>
+          <div class="c-info-c rv d1">
+            <div class="c-info-ico-svg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="c-info-lbl">Email</div>
+              <div class="c-info-val"><a href="mailto:dailyrentalsgreece@gmail.com" style="color:var(--red)">dailyrentalsgreece@gmail.com</a></div>
+              <div class="c-info-sub">Απάντηση εντός 1 ώρας (08:00–22:00)</div>
             </div>
           </div>
           <div class="c-info-c rv d2">
-            <div class="c-info-ico">📍</div>
+            <div class="c-info-ico-svg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
             <div>
               <div class="c-info-lbl">Διεύθυνση Καταστήματος</div>
               <div class="c-info-val">Σπύρου Δάβαρη, Κορωπί</div>
@@ -110,15 +203,19 @@
             </div>
           </div>
           <div class="c-info-c rv d3">
-            <div class="c-info-ico">🕐</div>
+            <div class="c-info-ico-svg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
             <div>
               <div class="c-info-lbl">Ώρες Λειτουργίας</div>
               <div class="c-info-val">Καθημερινά Ανοιχτά</div>
-              <div class="c-info-sub">Κλείνει 8:00 μ.μ.</div>
+              <div class="c-info-sub">08:00–22:00 — 7 ημέρες την εβδομάδα</div>
             </div>
           </div>
           <div class="c-info-c rv d1">
-            <div class="c-info-ico">📸</div>
+            <div class="c-info-ico-svg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
             <div>
               <div class="c-info-lbl">Instagram</div>
               <div class="c-info-val"><a href="https://instagram.com/dailycar.rentalsgr" target="_blank" style="color:var(--red)">@dailycar.rentalsgr</a></div>
@@ -142,71 +239,213 @@
 
       <!-- Right form -->
       <div class="c-form-wrap rv d2">
-        <h3>📋 Φόρμα Κράτησης</h3>
-        <form class="c-form" novalidate>
-          <div class="form-row">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Φόρμα Κράτησης
+        </h3>
+        <p class="c-form-subtitle">Συμπληρώστε τα στοιχεία και θα επικοινωνήσουμε μαζί σας εντός 1 ώρας.</p>
+
+        <form class="c-form" id="booking-form" novalidate>
+
+          <!-- Section 1: Vehicle & Dates -->
+          <div class="form-section">
+            <div class="form-section-title"><span>1</span> Αυτοκίνητο & Ημερομηνίες</div>
+
             <div class="fgl">
-              <label>Όνομα *</label>
-              <input type="text" placeholder="π.χ. Γιώργης" required/>
+              <label>Τόπος Παραλαβής *</label>
+              <select name="pickup_location" required>
+                <option value="" disabled selected>Επιλέξτε τοποθεσία...</option>
+                <option value="Αθήνα / Κορωπί (κατάστημα)">Αθήνα / Κορωπί (κατάστημα)</option>
+                <option value="Αεροδρόμιο Αθηνών — «Ελ. Βενιζέλος»">Αεροδρόμιο Αθηνών — «Ελ. Βενιζέλος»</option>
+                <option value="Πειραιάς">Πειραιάς</option>
+                <option value="Άλλη τοποθεσία">Άλλη τοποθεσία (αναφέρετε στα σχόλια)</option>
+              </select>
+              <div class="field-err" id="err-pickup_location"></div>
             </div>
+
+            <div class="form-row">
+              <div class="fgl">
+                <label>Ημ/νία Παραλαβής *</label>
+                <input type="date" name="pickup_date" class="pickup-date" required/>
+                <div class="field-err" id="err-pickup_date"></div>
+              </div>
+              <div class="fgl">
+                <label>Ημ/νία Επιστροφής *</label>
+                <input type="date" name="return_date" class="return-date" required/>
+                <div class="field-err" id="err-return_date"></div>
+              </div>
+            </div>
+
             <div class="fgl">
-              <label>Επώνυμο *</label>
-              <input type="text" placeholder="π.χ. Παπαδόπουλος" required/>
+              <label>Κατηγορία Αυτοκινήτου</label>
+              <select name="car_group" id="car-group-select">
+                <option value="">Δεν έχω προτίμηση</option>
+                <option value="A">A — Toyota Aygo ή παρόμοιο (Mini)</option>
+                <option value="B">B — Hyundai i10 ή παρόμοιο (Mini)</option>
+                <option value="BD">BD — Hyundai i10 Αυτόματο ή παρόμοιο (Mini Automatic)</option>
+                <option value="C1">C1 — Toyota Yaris ή παρόμοιο (Economy)</option>
+                <option value="CD">CD — Toyota Yaris Αυτόματο ή παρόμοιο (Economy Auto)</option>
+                <option value="GA">GA — VW Polo ή παρόμοιο (Economy+)</option>
+                <option value="D">D — Toyota Corolla ή παρόμοιο (Compact)</option>
+                <option value="DD">DD — Toyota Corolla Αυτόματο ή παρόμοιο (Compact Auto)</option>
+                <option value="G">G — Nissan Qashqai ή παρόμοιο (Compact+)</option>
+                <option value="E">E — Toyota Camry ή παρόμοιο (Sedan)</option>
+                <option value="ED">ED — Toyota Camry Αυτόματο ή παρόμοιο (Sedan Auto)</option>
+                <option value="E1">E1 — Mercedes C-Class ή παρόμοιο (Executive Sedan)</option>
+                <option value="G1">G1 — Toyota RAV4 ή παρόμοιο (SUV)</option>
+                <option value="G2">G2 — Toyota RAV4 Αυτόματο ή παρόμοιο (SUV Auto)</option>
+                <option value="S">S — Mercedes E-Class ή παρόμοιο (Executive)</option>
+                <option value="J1">J1 — Toyota Land Cruiser ή παρόμοιο (Large SUV)</option>
+                <option value="J2">J2 — Toyota Land Cruiser Auto ή παρόμοιο (Large SUV Auto)</option>
+                <option value="JA">JA — Hyundai Tucson ή παρόμοιο (Crossover)</option>
+                <option value="XM">XM — Kia Sportage ή παρόμοιο (Crossover+)</option>
+                <option value="F">F — Toyota Proace ή παρόμοιο (Van 9 θέσεων)</option>
+                <option value="KD">KD — Ford Transit ή παρόμοιο (Cargo Van)</option>
+                <option value="KA">KA — Renault Trafic ή παρόμοιο (Minivan)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Section 2: Insurance -->
+          <div class="form-section">
+            <div class="form-section-title"><span>2</span> Ασφαλιστικό Πακέτο</div>
+            <div class="ins-grid">
+
+              <label class="ins-card selected" data-ins="basic">
+                <input type="radio" name="insurance" value="basic" checked/>
+                <div class="ins-check"><div class="ins-check-dot"></div></div>
+                <div class="ins-card-name">Βασική CDW/TP</div>
+                <div class="ins-price free">Συμπεριλαμβάνεται</div>
+                <div class="ins-desc">Κάλυψη ζημιάς αυτοκινήτου (CDW) + κλοπή (TP). Ισχύει εγγύηση ανάλογα με την κατηγορία.</div>
+                <div class="ins-deposit" id="ins-deposit-note">Εγγύηση: από €500</div>
+              </label>
+
+              <label class="ins-card" data-ins="scdw">
+                <input type="radio" name="insurance" value="scdw"/>
+                <div class="ins-check"><div class="ins-check-dot"></div></div>
+                <div class="ins-card-name">SCDW</div>
+                <div class="ins-price" id="ins-price-scdw">+€8–16 / ημέρα</div>
+                <div class="ins-desc">Μειώνει ή μηδενίζει την ευθύνη εγγύησης για CDW & TP. Εκτός αμέλειας & παραβάσεων.</div>
+              </label>
+
+              <label class="ins-card" data-ins="full">
+                <input type="radio" name="insurance" value="full"/>
+                <div class="ins-check"><div class="ins-check-dot"></div></div>
+                <div class="ins-card-name">Πλήρης Κάλυψη</div>
+                <div class="ins-price" id="ins-price-full">+€14–28 / ημέρα</div>
+                <div class="ins-desc">Ευρεία κάλυψη χωρίς εγγύηση. Εκτός αμέλειας, λάθος καυσίμου, κλειδιών, προστίμων.</div>
+              </label>
+
+              <label class="ins-card" data-ins="full_glass">
+                <input type="radio" name="insurance" value="full_glass"/>
+                <div class="ins-check"><div class="ins-check-dot"></div></div>
+                <div class="ins-card-name">Πλήρης + Τζάμια & Ελαστικά</div>
+                <div class="ins-price" id="ins-price-full_glass">+€19–38 / ημέρα</div>
+                <div class="ins-desc">Ως ανωτέρω, επιπλέον κάλυψη τζαμιών, ελαστικών & ζαντών. Μέγιστη προστασία.</div>
+              </label>
+
             </div>
           </div>
-          <div class="form-row">
-            <div class="fgl">
-              <label>Τηλέφωνο *</label>
-              <input type="tel" placeholder="69XXXXXXXX" required/>
+
+          <!-- Section 3: Extras -->
+          <div class="form-section">
+            <div class="form-section-title"><span>3</span> Πρόσθετες Υπηρεσίες</div>
+            <div class="extras-grid">
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="booster"/>
+                <span class="extra-label">Παιδικό κάθισμα (booster)</span>
+                <span class="extra-cost">€25</span>
+              </label>
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="baby"/>
+                <span class="extra-label">Βρεφικό κάθισμα</span>
+                <span class="extra-cost">€25</span>
+              </label>
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="ferry"/>
+                <span class="extra-label">Εξουσιοδότηση Φέρι Μποτ</span>
+                <span class="extra-cost">€60</span>
+              </label>
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="young"/>
+                <span class="extra-label">Νέος οδηγός (κάτω 21)</span>
+                <span class="extra-cost">€60</span>
+              </label>
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="senior"/>
+                <span class="extra-label">Ηλικιωμένος οδηγός (άνω 75)</span>
+                <span class="extra-cost">€60</span>
+              </label>
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="extra_drv"/>
+                <span class="extra-label">Πρόσθετος οδηγός (3ος+)</span>
+                <span class="extra-cost">€30</span>
+              </label>
+              <label class="extra-item">
+                <input type="checkbox" class="extra-cb" name="extras" value="oor"/>
+                <span class="extra-label">Εκτός ωραρίου γραφείου</span>
+                <span class="extra-cost">€30</span>
+              </label>
+            </div>
+            <div class="extras-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              2ος οδηγός: ΔΩΡΕΑΝ — μόνο ο 3ος και μετά χρεώνεται.
+            </div>
+          </div>
+
+          <!-- Price Summary -->
+          <div id="price-summary" style="display:none">
+            <div class="ps-head">Εκτιμώμενο Κόστος</div>
+            <div id="ps-lines"></div>
+            <hr class="ps-sep"/>
+            <div class="ps-total">
+              <span class="ps-total-label">Σύνολο</span>
+              <span class="ps-total-amount" id="ps-total-amount">€0</span>
+            </div>
+            <div class="ps-note">Η τελική τιμή επιβεβαιώνεται κατά την παραλαβή.</div>
+          </div>
+
+          <!-- Section 4: Contact Details -->
+          <div class="form-section">
+            <div class="form-section-title"><span>4</span> Στοιχεία Επικοινωνίας</div>
+            <div class="form-row">
+              <div class="fgl">
+                <label>Όνομα *</label>
+                <input type="text" name="first_name" placeholder="π.χ. Γιώργης" required/>
+                <div class="field-err" id="err-first_name"></div>
+              </div>
+              <div class="fgl">
+                <label>Επώνυμο *</label>
+                <input type="text" name="last_name" placeholder="π.χ. Παπαδόπουλος" required/>
+                <div class="field-err" id="err-last_name"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="fgl">
+                <label>Τηλέφωνο *</label>
+                <input type="tel" name="phone" placeholder="69XXXXXXXX" required/>
+                <div class="field-err" id="err-phone"></div>
+              </div>
+              <div class="fgl">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="email@example.com"/>
+              </div>
             </div>
             <div class="fgl">
-              <label>Email</label>
-              <input type="email" placeholder="email@example.com"/>
+              <label>Σχόλια / Πρόσθετες Πληροφορίες</label>
+              <textarea name="notes" placeholder="π.χ. ώρα παραλαβής, αριθμός πτήσης, ειδικές απαιτήσεις..."></textarea>
             </div>
           </div>
-          <div class="fgl">
-            <label>Τόπος Παραλαβής *</label>
-            <select required>
-              <option value="" disabled selected>Επιλέξτε τοποθεσία...</option>
-              <option>Αθήνα / Κορωπί (κατάστημα)</option>
-              <option>Αεροδρόμιο Αθηνών — «Ελ. Βενιζέλος»</option>
-              <option>Πειραιάς</option>
-              <option>Άλλη τοποθεσία (αναφέρετε στα σχόλια)</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <div class="fgl">
-              <label>Ημερομηνία Παραλαβής *</label>
-              <input type="date" required/>
-            </div>
-            <div class="fgl">
-              <label>Ημερομηνία Επιστροφής *</label>
-              <input type="date" required/>
-            </div>
-          </div>
-          <div class="fgl">
-            <label>Κατηγορία Αυτοκινήτου</label>
-            <select>
-              <option value="" disabled selected>Επιλέξτε κατηγορία...</option>
-              <option>Οικονομικό Hatchback (~10€/ημέρα)</option>
-              <option>City Mini (~12€/ημέρα)</option>
-              <option>Family Sedan (~16€/ημέρα)</option>
-              <option>Executive Sedan (~18€/ημέρα)</option>
-              <option>Compact SUV (~25€/ημέρα)</option>
-              <option>Large SUV (~35€/ημέρα)</option>
-              <option>Van / Minivan (~40€/ημέρα)</option>
-              <option>Δεν έχω προτίμηση</option>
-            </select>
-          </div>
-          <div class="fgl">
-            <label>Σχόλια / Πρόσθετες Πληροφορίες</label>
-            <textarea placeholder="π.χ. ώρα παραλαβής, ειδικές απαιτήσεις, αριθμός πτήσης..."></textarea>
-          </div>
-          <button type="submit" class="c-submit">
+
+          <div class="form-send-error" id="form-send-error" style="display:none"></div>
+
+          <button type="submit" class="c-submit" id="booking-submit">
             Αποστολή Αίτησης Κράτησης
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
-          <p style="font-size:.75rem;color:var(--gray-400);text-align:center;margin-top:14px;line-height:1.5">Θα σας επικοινωνήσουμε άμεσα για επιβεβαίωση.<br/>Για άμεση εξυπηρέτηση καλέστε <a href="tel:6983056936" style="color:var(--red)">698 305 6936</a></p>
+          <p style="font-size:.75rem;color:var(--gray-400);text-align:center;margin-top:14px;line-height:1.5">Θα σας επικοινωνήσουμε εντός 1 ώρας (08:00–22:00).<br/>Για άμεση εξυπηρέτηση καλέστε <a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a></p>
+
         </form>
       </div>
     </div>
@@ -277,9 +516,22 @@
       </div>
       <div class="ft-col">
         <h4>Επικοινωνία</h4>
-        <div class="ft-ci"><span class="ft-ci-ico">📍</span><div class="ft-ci-txt"><strong>Διεύθυνση</strong>Σπύρου Δάβαρη, Κορωπί 194 00</div></div>
-        <div class="ft-ci"><span class="ft-ci-ico">📞</span><div class="ft-ci-txt"><strong>Κρατήσεις</strong><a href="tel:6983056936" style="color:var(--red)">698 305 6936</a></div></div>
-        <div class="ft-ci"><span class="ft-ci-ico">🕐</span><div class="ft-ci-txt"><strong>Ώρες</strong>Καθημερινά — έως 8:00 μ.μ.</div></div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="ft-ci-txt"><strong>Διεύθυνση</strong>Σπύρου Δάβαρη, Κορωπί 194 00</div>
+        </div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div class="ft-ci-txt"><strong>Κρατήσεις</strong><a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a></div>
+        </div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="ft-ci-txt"><strong>Email</strong><a href="mailto:dailyrentalsgreece@gmail.com" style="color:var(--red)">dailyrentalsgreece@gmail.com</a></div>
+        </div>
+        <div class="ft-ci">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--red);flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="ft-ci-txt"><strong>Ώρες</strong>Καθημερινά — 08:00–22:00</div>
+        </div>
       </div>
     </div>
     <div class="ft-bot">
@@ -292,11 +544,17 @@
 <script src="js/main.js"></script>
 <script>
   // FAQ accordion
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.querySelector('.faq-q').addEventListener('click', () => {
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').classList.remove('open'); });
-      if (!wasOpen) { item.classList.add('open'); item.querySelector('.faq-a').classList.add('open'); }
+  document.querySelectorAll('.faq-item').forEach(function(item) {
+    item.querySelector('.faq-q').addEventListener('click', function() {
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').classList.remove('open');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        item.querySelector('.faq-a').classList.add('open');
+      }
     });
   });
 </script>
