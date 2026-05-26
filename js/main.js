@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
           '</div>' +
         '</div>';
       }).join('');
-      rvTrack.insertAdjacentHTML('afterbegin', cards);
+      rvTrack.insertAdjacentHTML('beforeend', cards);
     }
   }
 

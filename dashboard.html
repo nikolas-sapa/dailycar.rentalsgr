@@ -366,7 +366,7 @@
             <input type="date" id="tm-date"/>
           </div>
           <div class="bfl" style="display:flex;align-items:center;gap:10px;padding-top:20px">
-            <input type="checkbox" id="tm-featured" style="width:16px;height:16px;accent-color:var(--red)"/>
+            <input type="checkbox" id="tm-featured" checked style="width:16px;height:16px;accent-color:var(--red)"/>
             <label for="tm-featured" style="margin:0;font-size:.82rem;font-weight:600;color:var(--black)">Εμφάνιση στο site</label>
           </div>
         </div>
@@ -777,7 +777,7 @@ document.getElementById('btn-tm-add').addEventListener('click', () => {
   ['tm-name','tm-location','tm-car','tm-text'].forEach(id => { document.getElementById(id).value = ''; });
   document.getElementById('tm-stars').value   = '5';
   document.getElementById('tm-date').value    = '';
-  document.getElementById('tm-featured').checked = false;
+  document.getElementById('tm-featured').checked = true;
   renderTestimonials();
 });
 
