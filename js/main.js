@@ -641,7 +641,7 @@ var TRANSLATIONS = {
     'lbl-phone':'Phone *', 'lbl-email':'Email *', 'lbl-notes':'Notes',
     'submit-btn':'Send Booking Request →',
     'extras-note':'2nd driver: FREE. All extras charged per rental.',
-    'pg-fleet-h1':'Vehicles for <span>every trip</span>',
+    'pg-fleet-h1':'Our <span>Fleet</span>',
     'pg-fleet-sub':'22 vehicle categories, from compact city cars to 9-seat vans. Flexible rental periods, competitive daily rates.',
     'sec3-title':'Extra Services',
     'sec4-title':'Contact Details',
@@ -661,6 +661,7 @@ var TRANSLATIONS = {
     'ins-full-desc':'Comprehensive coverage, no excess. Excludes negligence, wrong fuel, keys, and fines.',
     'ins-glass-name':'Full + Glass & Tyres',
     'ins-glass-desc':'As above, plus coverage for glass, tyres & wheels. Maximum protection.',
+    'ins-basic-free':'Included',
     'extra-booster':'Booster seat (child)',
     'extra-baby':'Baby seat',
     'extra-ferry':'Ferry Boarding Authorization',
@@ -670,8 +671,123 @@ var TRANSLATIONS = {
     'extra-oor':'Out of office hours service',
     'extras-note':'2nd driver: FREE — only 3rd driver onwards is charged.',
     'submit-btn':'Send Booking Request',
+
+    'fleet-bc':'Fleet',
+    'fleet-page-tag':'22 Vehicle Categories',
+    'fleet-page-desc':'From Mini hatchbacks to 9-seat vans — find the ideal vehicle. Pricing by rental duration, no hidden fees.',
+    'fleet-avail-tag':'Available Vehicles',
+    'fleet-avail-h2':'Choose <span>category</span>',
+    'fleet-avail-btn':'Check availability →',
+    'fleet-filter-all':'All',
+    'fleet-filter-eco':'Economy',
+    'fleet-filter-sedan':'Compact / Sedan',
+    'fleet-filter-suv':'SUV',
+    'fleet-filter-van':'Van / Minivan',
+
+    'contact-bc':'Booking & Contact',
+    'contact-h1':'Book <span>Now</span>',
+    'contact-p':'Fill in the form or call us directly. We respond within 1 hour, every day 08:00–22:00.',
+    'bar-phone-lbl':'Booking Phone',
+    'bar-hours-lbl':'Opening Hours',
+    'bar-hours-val':'Daily 08:00–22:00',
+    'bar-price-lbl':'Prices from',
+    'bar-price-val':'17€ / day',
+    'ps-head':'Estimated Cost',
+    'ps-total-label':'Total',
+    'ps-note':'Final price confirmed at pickup.',
+    'submit-note':'We\'ll contact you within 1 hour (08:00–22:00).<br/>For immediate service call <a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a>',
+
+    'faq-title':'Frequently Asked <span>Questions</span>',
+    'faq-q1':'Is a credit card required to book?',
+    'faq-a1':'No! No credit card required. We accept cash and debit cards. This is one of our biggest advantages.',
+    'faq-q2':'Are there hidden fees?',
+    'faq-a2':'Absolutely not. Full price transparency — what we agree is what you pay. No surprises, no extra charges.',
+    'faq-q3':'Do you deliver to the airport?',
+    'faq-a3':'Yes! We deliver and collect vehicles at "Eleftherios Venizelos" Airport. Just let us know your flight number.',
+    'faq-q4':'What documents are required?',
+    'faq-a4':'A valid driving licence and ID or passport are required. Additional conditions may apply for drivers under 23.',
+    'faq-q5':'What happens in case of breakdown?',
+    'faq-a5':'All our vehicles are fully insured. In case of breakdown or accident, contact us immediately and we\'ll assist you right away.',
+    'faq-q6':'Can I return the car to a different location?',
+    'faq-a6':'Yes, with a special arrangement. Contact us to discuss your options and the cost.',
   }
 };
+
+function translateDynamicContent(lang) {
+  var en = lang === 'en';
+
+  // ── Fleet page: car card repeated text ──────────────────────────────────
+  document.querySelectorAll('.car-type-lbl').forEach(function(el) {
+    var orig = el.dataset.origText || el.textContent;
+    if (!el.dataset.origText) el.dataset.origText = orig;
+    el.textContent = en ? orig.replace('Χειροκίνητο','Manual').replace('Αυτόματο','Automatic').replace('Βενζίνη','Petrol').replace('Υβριδικό','Hybrid').replace('πόρτες','doors') : orig;
+  });
+
+  document.querySelectorAll('.deposit-row').forEach(function(el) {
+    var orig = el.dataset.origHTML || el.innerHTML;
+    if (!el.dataset.origHTML) el.dataset.origHTML = orig;
+    el.innerHTML = en ? orig.replace(/Εγγύηση/g,'Deposit').replace(/θέσεις/g,'seats') : orig;
+  });
+
+  document.querySelectorAll('.car-name > span').forEach(function(el) {
+    el.textContent = en ? 'or similar' : 'ή παρόμοιο';
+  });
+
+  document.querySelectorAll('.price-fr').forEach(function(el) {
+    el.textContent = en ? 'from' : 'από';
+  });
+
+  document.querySelectorAll('.price-big > span').forEach(function(el) {
+    el.textContent = en ? '/ day' : '/ ημέρα';
+  });
+
+  document.querySelectorAll('.car-c-ft .btn-dark').forEach(function(el) {
+    el.textContent = en ? 'Book' : 'Κράτηση';
+  });
+
+  document.querySelectorAll('.tier-table th').forEach(function(el) {
+    var orig = el.dataset.origText || el.textContent;
+    if (!el.dataset.origText) el.dataset.origText = orig;
+    el.textContent = en ? orig.replace('ημ.','d.') : orig;
+  });
+
+  // ── Contact page: select options ────────────────────────────────────────
+  var locMap = {
+    'Επιλέξτε τοποθεσία...': 'Select location...',
+    'Κέντρο Αθήνας': 'Athens City Centre',
+    'Αεροδρόμιο Αθηνών — «Ελ. Βενιζέλος»': 'Athens Airport — "El. Venizelos"',
+    'Πειραιάς': 'Piraeus',
+    'Άλλη τοποθεσία (αναφέρετε στα σχόλια)': 'Other location (specify in notes)'
+  };
+  document.querySelectorAll('select[name="pickup_location"] option').forEach(function(opt) {
+    var orig = opt.dataset.origText || opt.text;
+    if (!opt.dataset.origText) opt.dataset.origText = orig;
+    opt.text = en ? (locMap[orig] || orig) : orig;
+  });
+
+  document.querySelectorAll('#car-group-select option').forEach(function(opt) {
+    var orig = opt.dataset.origText || opt.text;
+    if (!opt.dataset.origText) opt.dataset.origText = orig;
+    if (en) {
+      opt.text = orig.replace('ή παρόμοιο','or similar').replace('(Χειρ. /','(Man. /').replace('(Αυτ. /','(Auto. /').replace('/ Βενζίνη)','/ Petrol)').replace('/ Υβρ.)','/ Hybrid)').replace('/ Μικτό)','/ Hybrid)').replace('Δεν έχω προτίμηση','No preference');
+    } else {
+      opt.text = orig;
+    }
+  });
+
+  // ── Form placeholders ───────────────────────────────────────────────────
+  var phMap = {
+    'π.χ. Γιώργης': 'e.g. George',
+    'π.χ. Παπαδόπουλος': 'e.g. Smith',
+    'π.χ. ώρα παραλαβής, αριθμός πτήσης, ειδικές απαιτήσεις...': 'e.g. pickup time, flight number, special requirements...'
+  };
+  document.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(function(el) {
+    if (el.dataset.i18n) return; // already handled by data-i18n system
+    var orig = el.dataset.origPh || el.placeholder;
+    if (!el.dataset.origPh) el.dataset.origPh = orig;
+    el.placeholder = en ? (phMap[orig] || orig) : orig;
+  });
+}
 
 window.setLang = function setLang(lang) {
   localStorage.setItem('dcr_lang', lang);
@@ -691,6 +807,7 @@ window.setLang = function setLang(lang) {
       }
     }
   });
+  translateDynamicContent(lang);
 }
 
 document.addEventListener('DOMContentLoaded', function() {

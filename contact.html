@@ -165,10 +165,10 @@
   <div class="pg-header-bg"></div>
   <div class="pg-grid-bg"></div>
   <div class="wrap pg-header-in">
-    <div class="breadcrumb"><a href="index.html">Αρχική</a><span class="breadcrumb-sep">›</span><span>Κράτηση & Επικοινωνία</span></div>
-    <div class="pg-header-tag">Άμεση εξυπηρέτηση</div>
-    <h1>Κάντε <span>Κράτηση</span></h1>
-    <p>Συμπληρώστε τη φόρμα ή καλέστε μας απευθείας. Απαντάμε μέσα σε 1 ώρα, κάθε μέρα 08:00–22:00.</p>
+    <div class="breadcrumb"><a href="index.html" data-i18n="nav-home">Αρχική</a><span class="breadcrumb-sep">›</span><span data-i18n="contact-bc">Κράτηση & Επικοινωνία</span></div>
+    <div class="pg-header-tag" data-i18n="pg-contact-tag">Άμεση εξυπηρέτηση</div>
+    <h1 data-i18n="contact-h1">Κάντε <span>Κράτηση</span></h1>
+    <p data-i18n="contact-p">Συμπληρώστε τη φόρμα ή καλέστε μας απευθείας. Απαντάμε μέσα σε 1 ώρα, κάθε μέρα 08:00–22:00.</p>
   </div>
 </div>
 
@@ -176,18 +176,18 @@
 <section style="background:var(--red);padding:40px 0">
   <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;text-align:center">
     <div>
-      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Τηλέφωνο Κρατήσεων</div>
+      <div data-i18n="bar-phone-lbl" style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Τηλέφωνο Κρατήσεων</div>
       <a href="tel:+306983056936" style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;letter-spacing:-1.5px">+30 698 305 6936</a>
     </div>
     <div style="width:1px;height:60px;background:rgba(255,255,255,.2)" class="hide-mobile"></div>
     <div>
-      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Ώρες Λειτουργίας</div>
-      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">Καθημερινά 08:00–22:00</div>
+      <div data-i18n="bar-hours-lbl" style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Ώρες Λειτουργίας</div>
+      <div data-i18n="bar-hours-val" style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">Καθημερινά 08:00–22:00</div>
     </div>
     <div style="width:1px;height:60px;background:rgba(255,255,255,.2)" class="hide-mobile"></div>
     <div>
-      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Τιμές από</div>
-      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">17€ / ημέρα</div>
+      <div data-i18n="bar-price-lbl" style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px">Τιμές από</div>
+      <div data-i18n="bar-price-val" style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff">17€ / ημέρα</div>
     </div>
   </div>
 </section>
@@ -368,7 +368,7 @@
                   <div class="ins-desc" data-i18n="ins-basic-desc">Κάλυψη ζημιάς αυτοκινήτου (CDW) + κλοπή (TP). Ισχύει εγγύηση ανάλογα με την κατηγορία.</div>
                   <div class="ins-deposit" id="ins-deposit-note">Εγγύηση: από €500</div>
                 </div>
-                <div class="ins-price-col"><div class="ins-price free">Συμπεριλαμβάνεται</div></div>
+                <div class="ins-price-col"><div class="ins-price free" data-i18n="ins-basic-free">Συμπεριλαμβάνεται</div></div>
               </label>
 
               <label class="ins-card" data-ins="scdw">
@@ -456,14 +456,14 @@
 
           <!-- Price Summary -->
           <div id="price-summary" style="display:none">
-            <div class="ps-head">Εκτιμώμενο Κόστος</div>
+            <div class="ps-head" data-i18n="ps-head">Εκτιμώμενο Κόστος</div>
             <div id="ps-lines"></div>
             <hr class="ps-sep"/>
             <div class="ps-total">
-              <span class="ps-total-label">Σύνολο</span>
+              <span class="ps-total-label" data-i18n="ps-total-label">Σύνολο</span>
               <span class="ps-total-amount" id="ps-total-amount">€0</span>
             </div>
-            <div class="ps-note">Η τελική τιμή επιβεβαιώνεται κατά την παραλαβή.</div>
+            <div class="ps-note" data-i18n="ps-note">Η τελική τιμή επιβεβαιώνεται κατά την παραλαβή.</div>
           </div>
 
           <!-- Section 4: Contact Details (step 3) -->
@@ -508,7 +508,7 @@
             <span data-i18n="submit-btn">Αποστολή Αίτησης Κράτησης</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
-          <p style="font-size:.75rem;color:var(--gray-400);text-align:center;margin-top:14px;line-height:1.5">Θα σας επικοινωνήσουμε εντός 1 ώρας (08:00–22:00).<br/>Για άμεση εξυπηρέτηση καλέστε <a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a></p>
+          <p style="font-size:.75rem;color:var(--gray-400);text-align:center;margin-top:14px;line-height:1.5" data-i18n="submit-note">Θα σας επικοινωνήσουμε εντός 1 ώρας (08:00–22:00).<br/>Για άμεση εξυπηρέτηση καλέστε <a href="tel:+306983056936" style="color:var(--red)">+30 698 305 6936</a></p>
 
         </form>
       </div>
@@ -521,31 +521,31 @@
   <div class="wrap">
     <div style="max-width:800px;margin:0 auto">
       <div class="rv" style="text-align:center"><div class="s-tag" style="justify-content:center">FAQ</div></div>
-      <div class="rv d1" style="text-align:center"><h2 class="s-title" style="text-align:center">Συχνές <span>Ερωτήσεις</span></h2></div>
+      <div class="rv d1" style="text-align:center"><h2 class="s-title" style="text-align:center" data-i18n="faq-title">Συχνές <span>Ερωτήσεις</span></h2></div>
       <div style="margin-top:48px">
         <div class="faq-item rv d1">
-          <div class="faq-q">Χρειάζεται πιστωτική κάρτα για κράτηση;<span class="faq-icon">+</span></div>
-          <div class="faq-a">Όχι! Δεν απαιτείται πιστωτική κάρτα. Αποδεχόμαστε μετρητά και χρεωστικές κάρτες. Αυτό είναι ένα από τα μεγαλύτερά μας πλεονεκτήματα.</div>
+          <div class="faq-q"><span data-i18n="faq-q1">Χρειάζεται πιστωτική κάρτα για κράτηση;</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" data-i18n="faq-a1">Όχι! Δεν απαιτείται πιστωτική κάρτα. Αποδεχόμαστε μετρητά και χρεωστικές κάρτες. Αυτό είναι ένα από τα μεγαλύτερά μας πλεονεκτήματα.</div>
         </div>
         <div class="faq-item rv d2">
-          <div class="faq-q">Υπάρχουν κρυφές χρεώσεις;<span class="faq-icon">+</span></div>
-          <div class="faq-a">Απολύτως όχι. Πλήρης διαφάνεια στις τιμές — αυτό που συμφωνούμε είναι αυτό που πληρώνετε. Χωρίς εκπλήξεις, χωρίς επιπλέον χρεώσεις.</div>
+          <div class="faq-q"><span data-i18n="faq-q2">Υπάρχουν κρυφές χρεώσεις;</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" data-i18n="faq-a2">Απολύτως όχι. Πλήρης διαφάνεια στις τιμές — αυτό που συμφωνούμε είναι αυτό που πληρώνετε. Χωρίς εκπλήξεις, χωρίς επιπλέον χρεώσεις.</div>
         </div>
         <div class="faq-item rv d3">
-          <div class="faq-q">Παραδίδετε στο αεροδρόμιο;<span class="faq-icon">+</span></div>
-          <div class="faq-a">Ναι! Παραδίδουμε και παραλαμβάνουμε αυτοκίνητα στο Αεροδρόμιο «Ελευθέριος Βενιζέλος». Απλώς ενημερώστε μας για τον αριθμό πτήσης σας.</div>
+          <div class="faq-q"><span data-i18n="faq-q3">Παραδίδετε στο αεροδρόμιο;</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" data-i18n="faq-a3">Ναι! Παραδίδουμε και παραλαμβάνουμε αυτοκίνητα στο Αεροδρόμιο «Ελευθέριος Βενιζέλος». Απλώς ενημερώστε μας για τον αριθμό πτήσης σας.</div>
         </div>
         <div class="faq-item rv d1">
-          <div class="faq-q">Ποια έγγραφα χρειάζονται;<span class="faq-icon">+</span></div>
-          <div class="faq-a">Απαιτείται ισχύουσα άδεια οδήγησης και ταυτότητα ή διαβατήριο. Για οδηγούς κάτω των 23 ετών ενδέχεται να ισχύουν πρόσθετες προϋποθέσεις.</div>
+          <div class="faq-q"><span data-i18n="faq-q4">Ποια έγγραφα χρειάζονται;</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" data-i18n="faq-a4">Απαιτείται ισχύουσα άδεια οδήγησης και ταυτότητα ή διαβατήριο. Για οδηγούς κάτω των 23 ετών ενδέχεται να ισχύουν πρόσθετες προϋποθέσεις.</div>
         </div>
         <div class="faq-item rv d2">
-          <div class="faq-q">Τι γίνεται σε περίπτωση βλάβης;<span class="faq-icon">+</span></div>
-          <div class="faq-a">Όλα τα αυτοκίνητά μας είναι πλήρως ασφαλισμένα. Σε περίπτωση βλάβης ή ατυχήματος, επικοινωνήστε αμέσως μαζί μας και θα σας εξυπηρετήσουμε άμεσα.</div>
+          <div class="faq-q"><span data-i18n="faq-q5">Τι γίνεται σε περίπτωση βλάβης;</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" data-i18n="faq-a5">Όλα τα αυτοκίνητά μας είναι πλήρως ασφαλισμένα. Σε περίπτωση βλάβης ή ατυχήματος, επικοινωνήστε αμέσως μαζί μας και θα σας εξυπηρετήσουμε άμεσα.</div>
         </div>
         <div class="faq-item rv d3">
-          <div class="faq-q">Μπορώ να επιστρέψω το αυτοκίνητο σε διαφορετική τοποθεσία;<span class="faq-icon">+</span></div>
-          <div class="faq-a">Ναι, με ειδική συμφωνία. Επικοινωνήστε μαζί μας για να συζητήσουμε τις επιλογές σας και το κόστος.</div>
+          <div class="faq-q"><span data-i18n="faq-q6">Μπορώ να επιστρέψω το αυτοκίνητο σε διαφορετική τοποθεσία;</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" data-i18n="faq-a6">Ναι, με ειδική συμφωνία. Επικοινωνήστε μαζί μας για να συζητήσουμε τις επιλογές σας και το κόστος.</div>
         </div>
       </div>
     </div>
